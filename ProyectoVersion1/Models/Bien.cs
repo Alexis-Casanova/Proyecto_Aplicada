@@ -8,6 +8,7 @@ namespace ProyectoVersion1.Models
         public int Id { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
+        [Required]
         public string Descripcion { get; set; }
         public float Precio { get; set; }
         public string Estado { get; set; }

@@ -86,7 +86,7 @@ namespace ProyectoVersion1.Controllers
                 return NotFound();
             }
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Nombre", bien.CategoriaId);
-            ViewData["EspacioId"] = new SelectList(_context.Espacios, "Id", "Id", bien.EspacioId);
+            ViewData["EspacioId"] = new SelectList(_context.Espacios, "Id", "Nombre", bien.EspacioId);
             return View(bien);
         }
 
@@ -122,7 +122,7 @@ namespace ProyectoVersion1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Id", bien.CategoriaId);
+            ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Nombre", bien.CategoriaId);
             ViewData["EspacioId"] = new SelectList(_context.Espacios, "Id", "Nombre", bien.EspacioId);
             return View(bien);
         }

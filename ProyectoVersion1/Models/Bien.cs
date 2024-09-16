@@ -5,6 +5,7 @@ namespace ProyectoVersion1.Models
 {
     public class Bien
     {
+        [Required]
         public int Id { get; set; }
         [Required]
         public string Codigo { get; set; }

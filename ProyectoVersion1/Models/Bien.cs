@@ -10,6 +10,7 @@ namespace ProyectoVersion1.Models
         public string Nombre { get; set; }
         [Required]
         public string Descripcion { get; set; }
+        [Required]
         public float Precio { get; set; }
         public string Estado { get; set; }
         [DataType(DataType.Date)]

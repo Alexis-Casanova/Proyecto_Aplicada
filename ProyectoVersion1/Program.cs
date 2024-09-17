@@ -24,6 +24,7 @@ using(var inicio = app.Services.CreateScope())
     var servicio = inicio.ServiceProvider;
     var contexto = servicio.GetRequiredService<ProyectoVersion1Context>();
     contexto.Database.EnsureCreated();
+    BDInicio.Registrar(contexto);
 }
 
 

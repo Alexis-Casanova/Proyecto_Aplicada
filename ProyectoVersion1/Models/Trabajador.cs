@@ -5,6 +5,7 @@ namespace ProyectoVersion1.Models
     public class Trabajador
     {
         public int Id { get; set; }
+        //DataAnotationNombre
 
         [Required(ErrorMessage = "Campo nombre es obligatorio")]
         [MinLength(5, ErrorMessage = "Nombre del trabajador requiere mínimo 5 caracteres")]

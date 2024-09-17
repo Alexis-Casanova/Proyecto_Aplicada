@@ -43,8 +43,9 @@ namespace ProyectoVersion1.Data
 
             var trabajadores = new Trabajador[]
             {
-                new Trabajador{Nombre="Diego Cruzado", Email="diegocruzado@gmail.com", Contraseña="diego123", Telefono="917081762", Cargo="Docente"},
-                new Trabajador{Nombre="Angie Malca", Email="angiemalca@gmail.com", Contraseña="angie123", Telefono="924568751", Cargo="Administrativo"}
+                new Trabajador{Nombre="Juan Pérez", Email="juanperez@gmail.com", Contraseña="EPIS2024", Telefono="917123548", Cargo="Administrador"},
+                new Trabajador{Nombre="Diego Cruzado", Email="diegocruzado@gmail.com", Contraseña="diego123", Telefono="917081762", Cargo="Trabajador"},
+                new Trabajador{Nombre="Angie Malca", Email="angiemalca@gmail.com", Contraseña="angie123", Telefono="924568751", Cargo="Trabajador"}
             };
             contexto.Trabajadores.AddRange(trabajadores);
             contexto.SaveChanges();

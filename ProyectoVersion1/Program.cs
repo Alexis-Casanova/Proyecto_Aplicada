@@ -1,11 +1,29 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ProyectoVersion1.Data;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ProyectoVersion1Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ProyectoVersion1Context") ?? throw new InvalidOperationException("Connection string 'ProyectoVersion1Context' not found.")));
 
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+{
+    options.Cookie.Name = "UsuariosLogin";
+    options.LoginPath = "/Home/Index";
+    options.AccessDeniedPath = "/Home/Index";
+});
+
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("root", policy => policy.RequireRole("Administrador"));
+    options.AddPolicy("mortal", policy => policy.RequireRole("Trabajador"));
+});
+
 // Add services to the container.
+builder.Services.AddSession();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -33,6 +51,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseSession();
+
+
+
 
 app.UseAuthorization();
 

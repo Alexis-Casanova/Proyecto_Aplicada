@@ -15,6 +15,7 @@ namespace ProyectoVersion1.Controllers
         {
             _context = context;
         }
+
         [HttpGet]
         public IActionResult LoginAdministrador()    
         {
@@ -35,7 +36,8 @@ namespace ProyectoVersion1.Controllers
 
             if(model.Role == "Administrador")
             {
-                var administrador = await _context.Trabajadores.FirstOrDefaultAsync(a => a.Email == model.Email && a.Contraseña == model.Password);
+                var administrador = await _context.Trabajadores
+                    .FirstOrDefaultAsync(a => a.Email == model.Email && a.Contraseña == model.Password && a.Cargo == model.Role);
 
                 if (administrador != null)
                 {
@@ -73,7 +75,52 @@ namespace ProyectoVersion1.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public async Task<IActionResult> LoginTrabajador(LoginViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            ClaimsIdentity identity = null; //Inicializo la identidad del usuario
+            bool isAutenticated = false; //Si ya esta autenticado
+
+            if(model.Role == "Trabajador")
+            {
+                var trabajador = await _context.Trabajadores
+                    .FirstOrDefaultAsync(a => a.Email == model.Email && a.Contraseña == model.Password && a.Cargo == model.Role);
+                if(trabajador != null)
+                {
+                    identity = new ClaimsIdentity(new[]
+                    {
+                        new Claim(ClaimTypes.Name, model.Email),
+                        new Claim(ClaimTypes.Role, "Trabajador"),
+                        new Claim("TrabajadorId", trabajador.Id.ToString())
+                    }, CookieAuthenticationDefaults.AuthenticationScheme);
+                    isAutenticated = true;
+                }
+
+            }
+
+            if (isAutenticated)
+            {
+                var principal = new ClaimsPrincipal(identity);
+                await HttpContext.SignInAsync(principal);
+
+                if(model.Role == "Trabajador")
+                {
+                    return RedirectToAction("Index", "Home"); //Este debe de mandar a la consulta
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
 
 
+        public async  Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

@@ -61,8 +61,8 @@ namespace ProyectoVersion1.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
-            ModelState.AddModelError("", "Valores incorrectos");
-            return RedirectToAction("Index", "Home");
+            ModelState.AddModelError("", "Verifique su Correo o Contraseña");
+            return View(model);
         }
 
 
@@ -112,8 +112,8 @@ namespace ProyectoVersion1.Controllers
                     return RedirectToAction("Index", "Home"); //Este debe de mandar a la consulta
                 }
             }
-
-            return RedirectToAction("Index", "Home");
+            ModelState.AddModelError("", "Verifique su Correo o Contraseña");
+            return View(model);
         }
 
 

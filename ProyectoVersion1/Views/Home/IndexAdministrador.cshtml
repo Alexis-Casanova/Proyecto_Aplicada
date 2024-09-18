@@ -2,36 +2,48 @@
 
 <h1 class="text-center">Bienvenido @Model.Nombre <br />Administra el Inventario</h1>
 
-<div class="contenedor mt-3">
-    <div class="contenedor2 mt-3">
-        <h2>Espacio</h2>
-        <p>Espacio donde se encuentran los bienes</p>
-        <a asp-action="Views/Espacios/Index" class="btn btn-primary">Espacios</a>
+<div class="container mt-5 text-center">
+    <div class="row justify-content-center">
+        <div class="col-sm-4 mb-4">
+            <div class="border border-secondary p-3">
+                <h2>Espacio</h2>
+                <p>Espacio donde se encuentran los bienes</p>
+                <a asp-controller="Espacios" asp-action="Index" class="btn btn-primary">Espacios</a>
+            </div>
+        </div>
+
+        <div class="col-sm-4 mb-4">
+            <div class="border border-secondary p-3">
+                <h2>Categoría</h2>
+                <p>Categoría a la que pertenece el bien</p>
+                <a asp-controller="Categorias" asp-action="Index" class="btn btn-primary">Categoría</a>
+            </div>
+        </div>
+
+        <div class="col-sm-4 mb-4">
+            <div class="border border-secondary p-3">
+                <h2>Trabajador</h2>
+                <p>Trabajador de la EPIS</p>
+                <a asp-controller="Trabajadores" asp-action="Index" class="btn btn-primary">Trabajador</a>
+            </div>
+        </div>
     </div>
 
-    <div class="contenedor2 mt-3">
-        <h2>Categoría</h2>
-        <p>Categoría a la que pertenece el bien</p>
-        <a asp-action="Categorias/Index" class="btn btn-primary">Categoría</a>
-    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-4 mb-4">
+            <div class="border border-secondary p-3">
+                <h2>Bien</h2>
+                <p>Bien o producto del inventario</p>
+                <a asp-controller="Bienes" asp-action="Index" class="btn btn-primary">Bien</a>
+            </div>
+        </div>
 
-    <div class="contenedor2 mt-3">
-        <h2>Trabajador</h2>
-        <p>Trabajador de la EPIS</p>
-        <a asp-action="Trabajadores/Index" class="btn btn-primary">Trabajador</a>
-    </div>
-</div>
-
-<div class="contenedor1 mt-3">
-    <div class="contenedor2">
-        <h2>Bien</h2>
-        <p>Bien o producto del inventario</p>
-        <a asp-action="Bienes/Index" class="btn btn-primary">Bien</a>
-    </div>
-
-    <div class="contenedor2">
-        <h2>Encargo</h2>
-        <p>Bienes encargados a los trabajadores</p>
-        <a asp-action="Encargos/Index" class="btn btn-primary">Encargo</a>
+        <div class="col-sm-4 mb-4">
+            <div class="border border-secondary p-3">
+                <h2>Encargo</h2>
+                <p>Bienes encargados a los trabajadores</p>
+                <a asp-controller="Encargos" asp-action="Index" class="btn btn-primary">Encargo</a>
+            </div>
+        </div>
     </div>
 </div>

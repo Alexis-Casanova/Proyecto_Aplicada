@@ -1,3 +1,41 @@
 ﻿@model List<Encargo>
 
+<h1 class="text-center">Hola,  @Model[0].Trabajador.Nombre. Consulta tus bienes</h1>
 
+<table class="table table-bordered table-hover table-striped">
+    <thead class="bg-primary text-white">
+        <tr class="text-center">
+            <th>
+                Trabajador
+            </th>
+            <th>
+                Bien
+            </th>
+            <th>
+                Fecha de Inicio
+            </th>
+            <th>
+                Fecha Fin
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Trabajador.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bien.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaInicio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaFin)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

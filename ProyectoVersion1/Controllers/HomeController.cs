@@ -37,7 +37,7 @@ namespace ProyectoVersion1.Controllers
         public IActionResult IndexTrabajador()
         {
             var trabajadorId = User.FindFirst("TrabajadorId").Value;
-            var encargo = _context.Encargos.Include(b=>b.Trabajador).Where(b=>b.TrabajadorId.ToString() == trabajadorId).ToList();
+            var encargo = _context.Encargos.Include(b=>b.Trabajador).Include(b=>b.Bien).Where(b=>b.TrabajadorId.ToString() == trabajadorId).ToList();
             return View(encargo);    
         }
 

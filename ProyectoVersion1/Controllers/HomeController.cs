@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProyectoVersion1.Data;
 using ProyectoVersion1.Models;
 using System.Diagnostics;
@@ -27,12 +28,12 @@ namespace ProyectoVersion1.Controllers
             var administrador = _context.Trabajadores.Find(Int32.Parse(administradorId));
             return View(administrador);
         }
-        [HttpGet]
+        [HttpGet] //Este trabaja con encargos, porque es mas conveniente
         public IActionResult IndexTrabajador()
         {
             var trabajadorId = User.FindFirst("TrabajadorId").Value;
-            var trabajador = _context.Trabajadores.Find(Int32.Parse(trabajadorId));
-            return View(trabajador);
+            var trabajador = _context.Encargos.Include(b=>b.Trabajador).First(b=>b.TrabajadorId.ToString() == trabajadorId);
+            return View(trabajador);    
         }
 
 

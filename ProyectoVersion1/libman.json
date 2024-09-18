@@ -6,7 +6,6 @@
       "library": "@fortawesome/fontawesome-free@6.6.0",
       "destination": "wwwroot/fortawesome/fontawesome-free/",
       "files": [
-        "LICENSE.txt",
         "package.json",
         "css/all.css",
         "css/all.min.css",
@@ -26,6 +25,15 @@
         "css/v4-shims.min.css",
         "css/v5-font-face.css",
         "css/v5-font-face.min.css",
+        "LICENSE.txt",
+        "webfonts/fa-brands-400.ttf",
+        "webfonts/fa-brands-400.woff2",
+        "webfonts/fa-regular-400.ttf",
+        "webfonts/fa-regular-400.woff2",
+        "webfonts/fa-solid-900.ttf",
+        "webfonts/fa-solid-900.woff2",
+        "webfonts/fa-v4compatibility.ttf",
+        "webfonts/fa-v4compatibility.woff2",
         "svgs/brands/42-group.svg",
         "svgs/brands/500px.svg",
         "svgs/brands/accessible-icon.svg",
@@ -2075,15 +2083,7 @@
         "svgs/solid/y.svg",
         "svgs/solid/yen-sign.svg",
         "svgs/solid/yin-yang.svg",
-        "svgs/solid/z.svg",
-        "webfonts/fa-brands-400.ttf",
-        "webfonts/fa-brands-400.woff2",
-        "webfonts/fa-regular-400.ttf",
-        "webfonts/fa-regular-400.woff2",
-        "webfonts/fa-solid-900.ttf",
-        "webfonts/fa-solid-900.woff2",
-        "webfonts/fa-v4compatibility.ttf",
-        "webfonts/fa-v4compatibility.woff2"
+        "svgs/solid/z.svg"
       ]
     }
   ]

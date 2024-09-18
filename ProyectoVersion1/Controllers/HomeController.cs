@@ -17,11 +17,17 @@ namespace ProyectoVersion1.Controllers
         {
             return View();
         }
-
-        public IActionResult Privacy()
+        [HttpGet]
+        public IActionResult IndexAdministrador()
         {
             return View();
         }
+        [HttpGet]
+        public IActionResult IndexTrabajador()
+        {
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

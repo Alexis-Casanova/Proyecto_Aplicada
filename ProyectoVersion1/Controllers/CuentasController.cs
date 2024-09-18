@@ -45,7 +45,7 @@ namespace ProyectoVersion1.Controllers
                     {
                         new Claim(ClaimTypes.Name, administrador.Email),
                         new Claim(ClaimTypes.Role, "Administrador"),
-                        new Claim("AdministradorId", administrador.Id.ToString())
+                        new Claim("AdminId", administrador.Id.ToString())
                     }, CookieAuthenticationDefaults.AuthenticationScheme);
                     isAutenticated = true;
                 }

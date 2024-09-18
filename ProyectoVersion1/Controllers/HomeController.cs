@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using ProyectoVersion1.Data;
 using ProyectoVersion1.Models;
 using System.Diagnostics;
 
@@ -8,12 +7,10 @@ namespace ProyectoVersion1.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ProyectoVersion1Context _context;
 
-        public HomeController(ILogger<HomeController> logger, ProyectoVersion1Context context)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _context = context;
         }
 
         public IActionResult Index()
@@ -23,16 +20,12 @@ namespace ProyectoVersion1.Controllers
         [HttpGet]
         public IActionResult IndexAdministrador()
         {
-            var adminId = User.FindFirst("AdministradorId").Value;
-            var administrador = _context.Trabajadores.Where(b => b.Id.ToString() == adminId);
-            return View(administrador);
+            return View();
         }
         [HttpGet]
         public IActionResult IndexTrabajador()
         {
-            var trabajadorId = User.FindFirst("TrabajadorId").Value;
-            var trabajador = _context.Trabajadores.Where(b => b.Id.ToString() == trabajadorId);
-            return View(trabajador);
+            return View();
         }
 
 

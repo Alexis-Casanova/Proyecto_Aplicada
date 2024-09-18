@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,8 @@ using ProyectoVersion1.Models;
 
 namespace ProyectoVersion1.Controllers
 {
+    [Authorize(Policy = "root")]
+
     public class EncargosController : Controller
     {
         private readonly ProyectoVersion1Context _context;
@@ -47,6 +50,8 @@ namespace ProyectoVersion1.Controllers
         }
 
         // GET: Encargos/Create
+        [Authorize(Policy = "root")]
+
         public IActionResult Create()
         {
             ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Nombre");
@@ -59,6 +64,8 @@ namespace ProyectoVersion1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "root")]
+
         public async Task<IActionResult> Create([Bind("Id,TrabajadorId,BienId,FechaInicio,FechaFin")] Encargo encargo)
         {
             if (ModelState.IsValid)
@@ -73,6 +80,8 @@ namespace ProyectoVersion1.Controllers
         }
 
         // GET: Encargos/Edit/5
+        [Authorize(Policy = "root")]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -89,6 +98,8 @@ namespace ProyectoVersion1.Controllers
             ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre", encargo.TrabajadorId);
             return View(encargo);
         }
+        [Authorize(Policy = "root")]
+
 
         // POST: Encargos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -128,6 +139,8 @@ namespace ProyectoVersion1.Controllers
         }
 
         // GET: Encargos/Delete/5
+        [Authorize(Policy = "root")]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -150,6 +163,8 @@ namespace ProyectoVersion1.Controllers
         // POST: Encargos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "root")]
+
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var encargo = await _context.Encargos.FindAsync(id);

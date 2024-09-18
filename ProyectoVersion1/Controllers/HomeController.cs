@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProyectoVersion1.Data;
@@ -21,6 +22,8 @@ namespace ProyectoVersion1.Controllers
         {
             return View();
         }
+        [Authorize(Policy = "root")]
+
         [HttpGet]
         public IActionResult IndexAdministrador()
         {
@@ -28,12 +31,14 @@ namespace ProyectoVersion1.Controllers
             var administrador = _context.Trabajadores.Find(Int32.Parse(administradorId));
             return View(administrador);
         }
+        [Authorize(Policy = "mortal")]
+
         [HttpGet] //Este trabaja con encargos, porque es mas conveniente
         public IActionResult IndexTrabajador()
         {
             var trabajadorId = User.FindFirst("TrabajadorId").Value;
-            var trabajador = _context.Encargos.Include(b=>b.Trabajador).First(b=>b.TrabajadorId.ToString() == trabajadorId);
-            return View(trabajador);    
+            var encargo = _context.Encargos.Include(b=>b.Trabajador).Where(b=>b.TrabajadorId.ToString() == trabajadorId).ToList();
+            return View(encargo);    
         }
 
 

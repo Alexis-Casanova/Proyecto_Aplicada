@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProyectoVersion1.Data;
@@ -8,6 +9,8 @@ using System.Security.Claims;
 
 namespace ProyectoVersion1.Controllers
 {
+    
+
     public class CuentasController : Controller
     {
         private readonly ProyectoVersion1Context _context;

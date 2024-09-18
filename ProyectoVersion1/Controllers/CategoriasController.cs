@@ -11,7 +11,8 @@ using ProyectoVersion1.Models;
 
 namespace ProyectoVersion1.Controllers
 {
-    [Authorize(Policy ="mortal")]
+    [Authorize(Policy = "root")]
+
     public class CategoriasController : Controller
     {
         private readonly ProyectoVersion1Context _context;

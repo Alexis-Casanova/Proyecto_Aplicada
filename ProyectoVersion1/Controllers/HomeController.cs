@@ -24,14 +24,14 @@ namespace ProyectoVersion1.Controllers
         public IActionResult IndexAdministrador()
         {
             var administradorId = User.FindFirst("AdministradorId").Value;
-            var administrador = _context.Trabajadores.Where(b => b.Id.ToString() == administradorId);
+            var administrador = _context.Trabajadores.Find(Int32.Parse(administradorId));
             return View(administrador);
         }
         [HttpGet]
         public IActionResult IndexTrabajador()
         {
             var trabajadorId = User.FindFirst("TrabajadorId").Value;
-            var trabajador = _context.Trabajadores.Where(b => b.Id.ToString() == trabajadorId);
+            var trabajador = _context.Trabajadores.Find(Int32.Parse(trabajadorId));
             return View(trabajador);
         }
 

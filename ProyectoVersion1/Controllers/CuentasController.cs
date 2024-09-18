@@ -58,7 +58,7 @@ namespace ProyectoVersion1.Controllers
 
                 if(model.Role == "Administrador")
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("IndexAdministrador", "Home");
                 }
             }
             ModelState.AddModelError("", "Verifique su Correo o Contraseña");
@@ -109,7 +109,7 @@ namespace ProyectoVersion1.Controllers
 
                 if(model.Role == "Trabajador")
                 {
-                    return RedirectToAction("Index", "Home"); //Este debe de mandar a la consulta
+                    return RedirectToAction("IndexTrabajador", "Home"); //Este debe de mandar a la consulta
                 }
             }
             ModelState.AddModelError("", "Verifique su Correo o Contraseña");

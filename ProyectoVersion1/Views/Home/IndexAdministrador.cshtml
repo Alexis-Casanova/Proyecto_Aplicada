@@ -1,5 +1,37 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Trabajador
+
+<h1 class="text-center">Bienvenido @Model.Nombre <br />Administra el Inventario</h1>
+
+<div class="contenedor mt-3">
+    <div class="contenedor2 mt-3">
+        <h2>Espacio</h2>
+        <p>Espacio donde se encuentran los bienes</p>
+        <a asp-action="Views/Espacios/Index" class="btn btn-primary">Espacios</a>
+    </div>
+
+    <div class="contenedor2 mt-3">
+        <h2>Categoría</h2>
+        <p>Categoría a la que pertenece el bien</p>
+        <a asp-action="Categorias/Index" class="btn btn-primary">Categoría</a>
+    </div>
+
+    <div class="contenedor2 mt-3">
+        <h2>Trabajador</h2>
+        <p>Trabajador de la EPIS</p>
+        <a asp-action="Trabajadores/Index" class="btn btn-primary">Trabajador</a>
+    </div>
+</div>
+
+<div class="contenedor1 mt-3">
+    <div class="contenedor2">
+        <h2>Bien</h2>
+        <p>Bien o producto del inventario</p>
+        <a asp-action="Bienes/Index" class="btn btn-primary">Bien</a>
+    </div>
+
+    <div class="contenedor2">
+        <h2>Encargo</h2>
+        <p>Bienes encargados a los trabajadores</p>
+        <a asp-action="Encargos/Index" class="btn btn-primary">Encargo</a>
+    </div>
+</div>

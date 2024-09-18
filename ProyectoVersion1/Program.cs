@@ -16,8 +16,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("root", policy => policy.RequireRole("Administrador"));
-    options.AddPolicy("mortal", policy => policy.RequireRole("Trabajador"));
+    options.AddPolicy("root", policy => policy.RequireRole("Administrador")); //cambiar polizas
+    options.AddPolicy("mortal", policy => policy.RequireRole("Trabajador")); //cambiar polizas
 });
 
 

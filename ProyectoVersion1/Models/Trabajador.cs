@@ -42,6 +42,6 @@ namespace ProyectoVersion1.Models
         [MinLength(5, ErrorMessage = "Tipo de Cargo del trabajador requiere mínimo 5 caracteres")]
         [MaxLength(50, ErrorMessage = "Tipo Cargo del trabajador no debe superar los 50 carcateres")]
         [Display(Name = "Tipo de Cargo")]
-        public string TipoCargo { get; set; }
+        public string Tipo { get; set; }
     }
 }

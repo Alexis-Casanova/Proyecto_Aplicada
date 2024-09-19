@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProyectoVersion1.Data;
 using ProyectoVersion1.Models;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
 namespace ProyectoVersion1.Controllers
@@ -31,16 +32,27 @@ namespace ProyectoVersion1.Controllers
             var administrador = _context.Trabajadores.Find(Int32.Parse(administradorId));
             return View(administrador);
         }
-        [Authorize(Policy = "mortal")]
 
+
+        [Authorize(Policy = "mortal")]
         [HttpGet] //Este trabaja con encargos, porque es mas conveniente
-        public IActionResult IndexTrabajador()
+        public IActionResult IndexTrabajador(string estadoBien)
         {
             var trabajadorId = User.FindFirst("TrabajadorId").Value;
-            var encargo = _context.Encargos.Include(b=>b.Trabajador).Include(b=>b.Bien).Where(b=>b.TrabajadorId.ToString() == trabajadorId).ToList();
-            return View(encargo);    
-        }
+            var encargos = _context.Encargos.Include(b=>b.Trabajador).Include(b=>b.Bien).Where(b=>b.TrabajadorId.ToString() == trabajadorId).ToList();
 
+            var trabajador = _context.Trabajadores.Find(Int32.Parse(trabajadorId));
+
+            if(estadoBien != null)
+            {
+                encargos = encargos.Where(b => b.Bien.Estado == estadoBien).ToList();
+            }
+
+            // Mantiene el valor constante en la aplicacion 
+            ViewData["EstadoBien"] = estadoBien;
+            ViewData["Trabajador"] = trabajador;
+            return View(encargos);    
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

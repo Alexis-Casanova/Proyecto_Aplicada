@@ -1,15 +1,33 @@
 ﻿@model List<Encargo>
 
-<h1 class="text-center">Hola,  @Model[0].Trabajador.Nombre. Consulta tus bienes</h1>
+<h1 class="text-center mt-5">Hola, @ViewBag.Trabajador.Nombre . Consulta tus bienes a Cargo</h1>
 
-<table class="table table-bordered table-hover table-striped">
+<div class="col-6">
+    <form asp-controller="Home" asp-action="IndexTrabajador" method="get">
+        <div class="input-group">
+            <input name="estadoBien" value="@ViewBag.EstadoBien" class="form-control" placeholder="Consulta por Estado"/>
+            <button type="submit" class="btn btn-outline-primary">Ver</button>
+            <a class="btn btn-outline-secondary" asp-action="IndexTrabajador" asp-controller="Home">Listar</a>
+        </div>
+    </form>
+</div>
+
+@Model.Count() registros
+
+<table class="table table-bordered table-hover table-striped mt-5">
     <thead class="bg-primary text-white">
         <tr class="text-center">
             <th>
                 Trabajador
             </th>
             <th>
+                Codgio del Bien
+            </th>
+            <th>
                 Bien
+            </th>
+            <th>
+                Estado del Bien
             </th>
             <th>
                 Fecha de Inicio
@@ -20,22 +38,37 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @if(Model.Count() != 0)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Trabajador.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Bien.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaInicio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaFin)
-                </td>
-            </tr>
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Trabajador.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Bien.Codigo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Bien.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Bien.Estado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaInicio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaFin)
+                    </td>
+                </tr>
+            }
+        }
+        else
+            {
+                <td class="text-danger text-center" colspan="6">No Hay bienes a cargo del tipo @ViewBag.EstadoBien</td>
+            }
+
         }
     </tbody>
 </table>

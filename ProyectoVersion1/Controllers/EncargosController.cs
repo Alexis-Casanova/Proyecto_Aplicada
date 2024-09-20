@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProyectoVersion1.Data;
 using ProyectoVersion1.Models;
+using X.PagedList;
 
 namespace ProyectoVersion1.Controllers
 {
@@ -16,17 +17,39 @@ namespace ProyectoVersion1.Controllers
     public class EncargosController : Controller
     {
         private readonly ProyectoVersion1Context _context;
+        private readonly IConfiguration _configuration;
 
-        public EncargosController(ProyectoVersion1Context context)
+        public EncargosController(ProyectoVersion1Context context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         // GET: Encargos
-        public async Task<IActionResult> Index()
+        [BindProperty(SupportsGet = true)]
+        public int? Pagina { get; set; }
+
+        public async Task<IActionResult> Index(string buscaTrabajador)
         {
-            var proyectoVersion1Context = _context.Encargos.Include(e => e.Bien).Include(e => e.Trabajador);
-            return View(await proyectoVersion1Context.ToListAsync());
+            ViewData["Trabajadores"] = new SelectList(_context.Trabajadores, "Id", "Nombre", buscaTrabajador);
+            ViewData["BuscaTrabajador"] = buscaTrabajador;
+
+            if (_context.Encargos != null)
+            {
+                var registrosPorPagina = _configuration.GetValue("RegistrosPorPagina", 10);
+                var consulta = _context.Encargos.Include(b => b.Trabajador).Include(b=>b.Bien).Select(u => u);
+
+                if (buscaTrabajador != null)
+                {
+                    consulta = consulta.Where(b => b.TrabajadorId == Int32.Parse(buscaTrabajador));
+                }
+
+                var numeroPagina = Pagina ?? 1;
+
+                return View(await consulta.ToPagedListAsync(numeroPagina, registrosPorPagina));
+            }
+
+            return View();
         }
 
         // GET: Encargos/Details/5

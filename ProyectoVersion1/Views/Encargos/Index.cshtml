@@ -1,4 +1,9 @@
-﻿@model IEnumerable<ProyectoVersion1.Models.Encargo>
+﻿@model IPagedList<ProyectoVersion1.Models.Encargo>
+
+@using X.PagedList
+@using X.PagedList.Web.Common
+@using X.PagedList.Mvc.Core
+
 
 @{
     ViewData["Title"] = "Index";
@@ -6,48 +11,69 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Trabajador)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bien)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaInicio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaFin)
-            </th>
-            <th></th>
+<div class="row">
+    <div class="col">
+        <p>
+            <a asp-action="Create">Añadir Encargo</a>
+        </p>
+    </div>
+    <div class="col">
+        <form asp-action="Index" asp-controller="Encargos" method="get">
+            <div class="input-group">
+                <select class="form-control mt-4" name="buscaTrabajador" value="@ViewBag.BuscaTrabajador" asp-items="ViewBag.Trabajadores">
+                    <option value="">---Busca Trabajador---</option>
+                </select>
+                <button type="submit" class="btn btn-outline-primary mt-4">Ver</button>
+                <a asp-action="Index" asp-controller="Encargos" class="btn btn-outline-secondary mt-4">Limpiar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<table class="table table-bordered table-hover table-striped mt-5">
+    <thead class="bg-primary text-white">
+        <tr class="text-center">
+            <th>Trabajador</th>
+            <th>Bien</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Fin</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Trabajador.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bien.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaInicio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaFin)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Trabajador.Nombre)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Bien.Nombre)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FechaInicio)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FechaFin)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No se encontraron encargos para este trabajador.</td>
+            </tr>
+        }
     </tbody>
 </table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new
+    {
+        Pagina = page,
+    }),
+
+    new PagedListRenderOptions
+{
+    LiElementClasses = new String[] { "page-item" },
+    PageClasses = new String[] { "link-item" },
+})

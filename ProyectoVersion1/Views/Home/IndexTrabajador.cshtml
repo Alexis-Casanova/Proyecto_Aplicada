@@ -14,17 +14,9 @@
     </form>
 </div>
 
-<div class="row">
-    <div class="col"><p class="text-primary text-center">Bienes a cargo: @ViewBag.EstadoBien</p></div>
-    <div class="col">
-        <p class="text-end">
-            @Model.Count() registros
-        </p>
-    </div>
-</div>
-
-
-
+<p class="text-end">
+    @Model.Count() registros
+</p>
 
 <table class="table table-bordered table-hover table-striped mt-5">
     <thead class="bg-primary text-white">
@@ -81,6 +73,6 @@
                 <td class="text-danger text-center" colspan="6">No Hay bienes a cargo en estado @ViewBag.EstadoBien</td>
             }
 
-        }
+        
     </tbody>
 </table>

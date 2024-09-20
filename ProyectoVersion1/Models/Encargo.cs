@@ -9,12 +9,12 @@ namespace ProyectoVersion1.Models
         [Required(ErrorMessage = "Campo trabajador es obligatorio")]
         [Display(Name = "Trabajador")]
         public int TrabajadorId { get; set; }
-        public virtual Trabajador Trabajador { get; set;}
+        public virtual Trabajador? Trabajador { get; set;}
 
         [Required(ErrorMessage = "Campo bien es obligatorio")]
         [Display(Name = "Bien")]
         public int BienId { get; set; }
-        public virtual Bien Bien { get; set; }
+        public virtual Bien? Bien { get; set; }
         [DataType(DataType.Date)]
 
         [Required(ErrorMessage = "Campo fecha de inicio es obligatorio")]

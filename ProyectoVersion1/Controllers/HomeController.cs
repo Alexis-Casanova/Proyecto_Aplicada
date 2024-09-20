@@ -49,7 +49,7 @@ namespace ProyectoVersion1.Controllers
             {
                 encargos = encargos.Where(b => b.Bien.Estado == estadoBien).ToList();
             }
-            ViewData["Estados"] = new SelectList(Estados); // PAra la lista desplegable
+            ViewData["Estados"] = new SelectList(Estados,"","",estadoBien); // PAra la lista desplegable
 
             // Mantiene el valor constante en la aplicacion 
             ViewData["EstadoBien"] = estadoBien;

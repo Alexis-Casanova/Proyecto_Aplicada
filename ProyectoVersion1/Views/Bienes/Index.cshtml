@@ -1,4 +1,5 @@
 ﻿@model IPagedList<ProyectoVersion1.Models.Bien>
+
 @using X.PagedList
 @using X.PagedList.Web.Common
 @using X.PagedList.Mvc.Core
@@ -18,7 +19,11 @@
     <div class="col">
         <form asp-action="Index" asp-controller="Bienes" method="get">
             <div class="input-group">
-                
+                <select class="form-control" name="buscaEspacio" value="@ViewBag.BuscaEspacio" asp-items="ViewBag.Espacios">
+                    <option value="">---Busca Espacio---</option>
+                </select>
+                <button type="submit" class="btn btn-outline-primary">Ver</button>
+                <a asp-action="Index" asp-controller="Bienes" class="btn btn-outline-secondary">Limpiar</a>
             </div>
         </form>
     </div>
@@ -95,7 +100,8 @@
 </table>
 
 @Html.PagedListPager(Model, page => Url.Action("Index", new {
-    Pagina = page}),
+    Pagina = page,
+    }),
 
 new PagedListRenderOptions
 {

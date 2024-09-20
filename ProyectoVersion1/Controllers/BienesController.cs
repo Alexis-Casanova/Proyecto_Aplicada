@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -24,15 +26,26 @@ namespace ProyectoVersion1.Controllers
             _configuration = configuration;
         }
 
+
+
+
         // GET: Bienes / Reciben las consultas
         [BindProperty(SupportsGet =true)]
         public int? Pagina { get; set; }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string buscaEspacio)
         {
+            ViewData["Espacios"] = new SelectList(_context.Espacios, "Id", "Nombre");
+            ViewData["BuscaEspacio"] = buscaEspacio;
             if(_context.Bienes != null)
             {
                 var registrosPorPagina = _configuration.GetValue("RegistrosPorPagina", 10);
-                var consulta = _context.Bienes.Include(b => b.Categoria).Include(b => b.Espacio);
+                var consulta = _context.Bienes.Include(b => b.Categoria).Include(b => b.Espacio).Select(u=>u);
+
+                if(buscaEspacio != null)
+                {
+                    consulta = consulta.Where(b => b.EspacioId == Int32.Parse(buscaEspacio));
+                }
+
 
                 var numeroPagina = Pagina ?? 1;
 
@@ -41,6 +54,11 @@ namespace ProyectoVersion1.Controllers
             
             return View();
         }
+
+
+
+
+
 
         // GET: Bienes/Details/5
         public async Task<IActionResult> Details(int? id)

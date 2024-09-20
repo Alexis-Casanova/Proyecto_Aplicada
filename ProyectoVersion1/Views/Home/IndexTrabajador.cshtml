@@ -5,14 +5,26 @@
 <div class="col-6">
     <form asp-controller="Home" asp-action="IndexTrabajador" method="get">
         <div class="input-group">
-            <input name="estadoBien" value="@ViewBag.EstadoBien" class="form-control" placeholder="Consulta por Estado"/>
+            <select name="estadoBien" value="@ViewBag.EstadoBien" class="form-control" placeholder="Consulta por Estado" asp-items="@ViewBag.Estados">
+                <option value="">---Buscar Estado---</option>
+            </select>
             <button type="submit" class="btn btn-outline-primary">Ver</button>
             <a class="btn btn-outline-secondary" asp-action="IndexTrabajador" asp-controller="Home">Listar</a>
         </div>
     </form>
 </div>
 
-@Model.Count() registros
+<div class="row">
+    <div class="col"><p class="text-primary text-center">Bienes a cargo: @ViewBag.EstadoBien</p></div>
+    <div class="col">
+        <p class="text-end">
+            @Model.Count() registros
+        </p>
+    </div>
+</div>
+
+
+
 
 <table class="table table-bordered table-hover table-striped mt-5">
     <thead class="bg-primary text-white">
@@ -66,7 +78,7 @@
         }
         else
             {
-                <td class="text-danger text-center" colspan="6">No Hay bienes a cargo del tipo @ViewBag.EstadoBien</td>
+                <td class="text-danger text-center" colspan="6">No Hay bienes a cargo en estado @ViewBag.EstadoBien</td>
             }
 
         }

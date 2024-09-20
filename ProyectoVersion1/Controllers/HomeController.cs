@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProyectoVersion1.Data;
 using ProyectoVersion1.Models;
@@ -33,6 +34,7 @@ namespace ProyectoVersion1.Controllers
             return View(administrador);
         }
 
+        public List<string> Estados = new List<string>() { "Activo", "Mantenimiento", "Dañado", "Perdido"};
 
         [Authorize(Policy = "mortal")]
         [HttpGet] //Este trabaja con encargos, porque es mas conveniente
@@ -41,18 +43,22 @@ namespace ProyectoVersion1.Controllers
             var trabajadorId = User.FindFirst("TrabajadorId").Value;
             var encargos = _context.Encargos.Include(b=>b.Trabajador).Include(b=>b.Bien).Where(b=>b.TrabajadorId.ToString() == trabajadorId).ToList();
 
-            var trabajador = _context.Trabajadores.Find(Int32.Parse(trabajadorId));
+            var trabajador = _context.Trabajadores.Find(Int32.Parse(trabajadorId)); //PAra trabajar el nombre
 
             if(estadoBien != null)
             {
                 encargos = encargos.Where(b => b.Bien.Estado == estadoBien).ToList();
             }
+            ViewData["Estados"] = new SelectList(Estados);
 
             // Mantiene el valor constante en la aplicacion 
             ViewData["EstadoBien"] = estadoBien;
             ViewData["Trabajador"] = trabajador;
             return View(encargos);    
         }
+
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

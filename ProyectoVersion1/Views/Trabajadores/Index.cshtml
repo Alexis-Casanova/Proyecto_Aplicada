@@ -1,10 +1,23 @@
-﻿@model IEnumerable<ProyectoVersion1.Models.Trabajador>
+﻿@using X.PagedList
+@using X.PagedList.Web.Common
+@using X.PagedList.Mvc.Core
+@model IPagedList<Trabajador>
 
-@{
-    ViewData["Title"] = "Index";
-}
+    <h1>Trabajadores</h1>
 
-<h1>Index</h1>
+<div class="col-6">
+    <form asp-controller="Trabajadores" asp-action="Index" method="get">
+        <div class="input-group">
+            <select name="buscaTipo" value="@ViewBag.BuscaTipo" class="form-control" placeholder="Consulta por Cargo" asp-items="@ViewBag.Tipos">
+                <option value="">---Buscar Estado---</option>
+            </select>
+            <button type="submit" class="btn btn-outline-primary">Ver</button>
+            <a asp-controller="Trabajadores" asp-action="Index" class="btn btn-secondary">Listar</a>
+        </div>
+    </form>
+</div>
+
+@Model.Count() Registros
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,27 +26,24 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nombre)
+                Nombre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+               Email
+            </th>
+           
+            <th>
+                Telefono
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Contraseña)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Telefono)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tipo)
+               Tipo
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-            if(item.Cargo!= "Administrador")
-            {
+           
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Nombre)
@@ -41,9 +51,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Email)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Contraseña)
-                    </td>
+                   
                     <td>
                         @Html.DisplayFor(modelItem => item.Telefono)
                     </td>
@@ -56,7 +64,15 @@
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </td>
                 </tr>
-            }
+            
 }
     </tbody>
 </table>
+
+
+@Html.PagedListPager(Model, page=>Url.Action("Index", new{Pagina = page}), 
+new PagedListRenderOptions{
+LiElementClasses=new String[]{"page-item"},
+PageClasses = new String[]{"link-item"},
+}
+)

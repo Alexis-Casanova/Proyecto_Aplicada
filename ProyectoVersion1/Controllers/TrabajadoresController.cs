@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProyectoVersion1.Data;
 using ProyectoVersion1.Models;
+using X.PagedList;
 
 namespace ProyectoVersion1.Controllers
 {
@@ -15,18 +16,48 @@ namespace ProyectoVersion1.Controllers
 
     public class TrabajadoresController : Controller
     {
+        
         private readonly ProyectoVersion1Context _context;
+        private readonly IConfiguration _configuration;
 
-        public TrabajadoresController(ProyectoVersion1Context context)
+        public TrabajadoresController(ProyectoVersion1Context context, IConfiguration configuration)
         {
+       
             _context = context;
+            _configuration = configuration;
+            
+
+        }
+        public List<string> Tipos = new List<string>() { "Docente", "Secretaria" };
+        // GET: Trabajadores
+        [BindProperty(SupportsGet =true)]
+        public int? Pagina {  get; set; }
+        public async Task<IActionResult> Index(string buscaTipo)
+        {
+
+            ViewData["Tipos"] = new SelectList(Tipos, "", "", buscaTipo);
+            ViewData["BuscaCargo"] = buscaTipo;
+            if (_context.Trabajadores!=null)
+            { 
+                var registrosPorPagina = _configuration.GetValue("RegistrosPorPagina", 10)+1;
+                var consulta = _context.Trabajadores.Select(u => u);
+                    if (buscaTipo!=null)
+                    {
+                    consulta = consulta.Where(b => b.Tipo == buscaTipo);
+                    }
+
+                var numeroPagina = Pagina ?? 1;
+
+                return View(await consulta.ToPagedListAsync(numeroPagina, registrosPorPagina));
+            }
+            return View();
         }
 
-        // GET: Trabajadores
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Trabajadores.ToListAsync());
-        }
+      
+
+        
+
+
 
         // GET: Trabajadores/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -90,6 +121,8 @@ namespace ProyectoVersion1.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Email,Contraseña,Telefono,Cargo,Tipo")] Trabajador trabajador)
+
+
         {
             if (id != trabajador.Id)
             {

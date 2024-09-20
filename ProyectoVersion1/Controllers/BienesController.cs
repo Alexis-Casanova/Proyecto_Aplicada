@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProyectoVersion1.Data;
 using ProyectoVersion1.Models;
+using X.PagedList;
 
 namespace ProyectoVersion1.Controllers
 {
@@ -15,17 +16,30 @@ namespace ProyectoVersion1.Controllers
     public class BienesController : Controller
     {
         private readonly ProyectoVersion1Context _context;
+        private readonly IConfiguration _configuration;
 
-        public BienesController(ProyectoVersion1Context context)
+        public BienesController(ProyectoVersion1Context context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
-        // GET: Bienes
+        // GET: Bienes / Reciben las consultas
+        [BindProperty(SupportsGet =true)]
+        public int? Pagina { get; set; }
         public async Task<IActionResult> Index()
         {
-            var proyectoVersion1Context = _context.Bienes.Include(b => b.Categoria).Include(b => b.Espacio);
-            return View(await proyectoVersion1Context.ToListAsync());
+            if(_context.Bienes != null)
+            {
+                var registrosPorPagina = _configuration.GetValue("RegistrosPorPagina", 10);
+                var consulta = _context.Bienes.Include(b => b.Categoria).Include(b => b.Espacio);
+
+                var numeroPagina = Pagina ?? 1;
+
+                return View(await consulta.ToPagedListAsync(numeroPagina, registrosPorPagina));
+            }
+            
+            return View();
         }
 
         // GET: Bienes/Details/5

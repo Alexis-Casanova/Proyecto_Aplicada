@@ -27,15 +27,13 @@ namespace ProyectoVersion1.Models
         public string Descripcion { get; set; }
 
         [Required(ErrorMessage = "Campo precio es obligatorio")]
-        [MinLength(3, ErrorMessage = "Precio del bien requiere mínimo 3 caracteres")]
-        [MaxLength(10, ErrorMessage = "Precio del bien no debe superar los 10 carcateres")]
         [Display(Name = "Precio")]
         public float Precio { get; set; }
 
         [Required(ErrorMessage = "Campo estado es obligatorio")]
         [MinLength(6, ErrorMessage = "Estado del bien requiere mínimo 6 caracteres")]
         [MaxLength(13, ErrorMessage = "Estado del bien no debe superar los 13 carcateres")]
-        [Display(Name = "Código")]
+        [Display(Name = "Estado")]
         public string Estado { get; set; }
         [DataType(DataType.Date)]
 

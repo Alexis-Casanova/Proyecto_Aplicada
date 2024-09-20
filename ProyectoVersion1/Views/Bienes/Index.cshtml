@@ -1,42 +1,60 @@
-﻿@model IEnumerable<ProyectoVersion1.Models.Bien>
-
+﻿@model IPagedList<ProyectoVersion1.Models.Bien>
+@using X.PagedList
+@using X.PagedList.Web.Common
+@using X.PagedList.Mvc.Core
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
+<div class="row">
+    <div class="col">
+        <p>
+            <a asp-action="Create">Añadir Bien</a>
+        </p>
+    </div>
+    <div class="col">
+        <form asp-action="Index" asp-controller="Bienes" method="get">
+            <div class="input-group">
+                
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Codigo)
+                Codigo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Nombre)
+                Nombre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
+                Descripcion
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Precio)
+                Precio
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Estado)
+                Estado
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FechaIngreso)
+                FechaIngreso
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Espacio)
+                Espacio
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Categoria)
+                Categoria
             </th>
-            <th></th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -75,3 +93,12 @@
 }
     </tbody>
 </table>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new {
+    Pagina = page}),
+
+new PagedListRenderOptions
+{
+    LiElementClasses = new String[] { "page-item" },
+    PageClasses = new String[] { "link-item" },
+})

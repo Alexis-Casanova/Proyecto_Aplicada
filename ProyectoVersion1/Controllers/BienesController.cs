@@ -32,11 +32,14 @@ namespace ProyectoVersion1.Controllers
         // GET: Bienes / Reciben las consultas
         [BindProperty(SupportsGet =true)]
         public int? Pagina { get; set; }
-        public async Task<IActionResult> Index(string buscaEspacio)
+        public async Task<IActionResult> Index(string buscaEspacio, string buscaCategoria)
         {
-            ViewData["Espacios"] = new SelectList(_context.Espacios, "Id", "Nombre");
+            ViewData["Espacios"] = new SelectList(_context.Espacios, "Id", "Nombre", buscaEspacio);
+            ViewData["Categoria"] = new SelectList(_context.Categorias, "Id", "Nombre",buscaCategoria);
             ViewData["BuscaEspacio"] = buscaEspacio;
-            if(_context.Bienes != null)
+            ViewData["BuscaCategoria"] = buscaCategoria;
+
+            if (_context.Bienes != null)
             {
                 var registrosPorPagina = _configuration.GetValue("RegistrosPorPagina", 10);
                 var consulta = _context.Bienes.Include(b => b.Categoria).Include(b => b.Espacio).Select(u=>u);
@@ -46,7 +49,15 @@ namespace ProyectoVersion1.Controllers
                     consulta = consulta.Where(b => b.EspacioId == Int32.Parse(buscaEspacio));
                 }
 
+                if(buscaCategoria != null)
+                {
+                    consulta = consulta.Where(c => c.CategoriaId == Int32.Parse(buscaCategoria));
+                }
 
+                if (buscaEspacio!=null && buscaCategoria!=null)
+                {
+                    consulta = consulta.Where(b => b.EspacioId == Int32.Parse(buscaEspacio) && b.CategoriaId == Int32.Parse(buscaCategoria));
+                }
                 var numeroPagina = Pagina ?? 1;
 
                 return View(await consulta.ToPagedListAsync(numeroPagina, registrosPorPagina));

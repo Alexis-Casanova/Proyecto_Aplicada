@@ -19,11 +19,18 @@
     <div class="col">
         <form asp-action="Index" asp-controller="Bienes" method="get">
             <div class="input-group">
+                @* ESPACIO BUSQUEDA *@
                 <select class="form-control" name="buscaEspacio" value="@ViewBag.BuscaEspacio" asp-items="ViewBag.Espacios">
                     <option value="">---Busca Espacio---</option>
                 </select>
-                <button type="submit" class="btn btn-outline-primary">Ver</button>
-                <a asp-action="Index" asp-controller="Bienes" class="btn btn-outline-secondary">Limpiar</a>
+            </div>
+            <div class="input-group">
+                @* CATEGORIA BUSQUEDA *@
+                <select class="form-control mt-4" name="buscaCategoria" value="@ViewBag.BuscaCategoria" asp-items="ViewBag.Categoria">
+                    <option value="">---Busca Categoria---</option>
+                </select>
+                <button type="submit" class="btn btn-outline-primary mt-4">Ver</button>
+                <a asp-action="Index" asp-controller="Bienes" class="btn btn-outline-secondary mt-4">Limpiar</a>
             </div>
         </form>
     </div>

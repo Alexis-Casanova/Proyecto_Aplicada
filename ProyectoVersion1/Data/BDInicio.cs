@@ -12,17 +12,23 @@ namespace ProyectoVersion1.Data
             }
             var espacios = new Espacio[]
             {
-                new Espacio{Nombre="Laboratorio 1",Tipo="Laboratorio",Ubicacion="Piso 2"},
+                
                 new Espacio{Nombre="Aula 1",Tipo="Aula",Ubicacion="Piso 2"},
-                new Espacio{Nombre="Laboratorio 2",Tipo="Laboratorio",Ubicacion="Piso 2"}
+                new Espacio{Nombre="Laboratorio 1",Tipo="Laboratorio",Ubicacion="Piso 2"},
+                new Espacio{Nombre="Laboratorio 2",Tipo="Laboratorio",Ubicacion="Piso 2"},
+                new Espacio{Nombre="Taller 1",Tipo="Taller",Ubicacion="Piso 3"},
+                new Espacio{Nombre="Taller 2",Tipo="Taller",Ubicacion="Piso 4"},
+                new Espacio{Nombre="Secretaría",Tipo="Oficina",Ubicacion="Piso 1"}
             };
             contexto.Espacios.AddRange(espacios);
             contexto.SaveChanges();
 
             var categorias = new Categoria[]
             {
-                new Categoria{Nombre="Equipo Laboratorio", Descripción="Equipos que pertenecen al laboratorio"},
-                new Categoria{Nombre="Equipo Aula", Descripción="Equipos que pertenecen al aula"}
+                new Categoria{Nombre="Tecnología", Descripción="Equipos y dispositivos electrónicos utilizados para procesos informáticos y de comunicación"},
+                new Categoria{Nombre="Mobiliario", Descripción="Equipos destinados a la funcionalidad y disposición de espacios, como mesas, sillas y estanterías, en la categoría de Mobiliario."},
+                new Categoria{Nombre="Equipo Oficina", Descripción="Equipos de la oficina"},
+                new Categoria{Nombre="Equipo Taller", Descripción="Equipos del taller",
             };
             contexto.Categorias.AddRange(categorias);
             contexto.SaveChanges();

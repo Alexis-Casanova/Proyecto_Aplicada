@@ -15,7 +15,7 @@ namespace ProyectoVersion1.Models
 
         [Required(ErrorMessage = "Campo nombre es obligatorio")]
         [MinLength(5, ErrorMessage = "Nombre del bien requiere mínimo 5 caracteres")]
-        [MaxLength(15, ErrorMessage = "Nombre del bien no debe superar los 15 carcateres")]
+        [MaxLength(20, ErrorMessage = "Nombre del bien no debe superar los 15 carcateres")]
         [Display(Name = "Nombre")]
         public string Nombre { get; set; }
 

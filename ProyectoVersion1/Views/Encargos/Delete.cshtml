@@ -15,13 +15,19 @@
             @Html.DisplayNameFor(model => model.Trabajador)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Trabajador.Id)
+            @Html.DisplayFor(model => model.Trabajador.Cargo)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Bien)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Bien.Id)
+            @Html.DisplayFor(model => model.Bien.Codigo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EstadoActual)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EstadoActual)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.FechaInicio)

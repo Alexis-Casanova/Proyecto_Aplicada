@@ -12,8 +12,7 @@ using X.PagedList;
 
 namespace ProyectoVersion1.Controllers
 {
-    [Authorize(Policy = "root")]
-
+    [Authorize(Policy ="root")]
     public class EncargosController : Controller
     {
         private readonly ProyectoVersion1Context _context;
@@ -37,7 +36,7 @@ namespace ProyectoVersion1.Controllers
             if (_context.Encargos != null)
             {
                 var registrosPorPagina = _configuration.GetValue("RegistrosPorPagina", 10);
-                var consulta = _context.Encargos.Include(b => b.Trabajador).Include(b=>b.Bien).Select(u => u);
+                var consulta = _context.Encargos.Include(b => b.Trabajador).Include(b => b.Bien).Select(u => u);
 
                 if (buscaTrabajador != null)
                 {
@@ -73,8 +72,6 @@ namespace ProyectoVersion1.Controllers
         }
 
         // GET: Encargos/Create
-        [Authorize(Policy = "root")]
-
         public IActionResult Create()
         {
             ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Nombre");
@@ -87,9 +84,7 @@ namespace ProyectoVersion1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "root")]
-
-        public async Task<IActionResult> Create([Bind("Id,TrabajadorId,BienId,FechaInicio,FechaFin")] Encargo encargo)
+        public async Task<IActionResult> Create([Bind("Id,TrabajadorId,BienId,EstadoActual,FechaInicio,FechaFin")] Encargo encargo)
         {
             if (ModelState.IsValid)
             {
@@ -103,8 +98,6 @@ namespace ProyectoVersion1.Controllers
         }
 
         // GET: Encargos/Edit/5
-        [Authorize(Policy = "root")]
-
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -121,15 +114,13 @@ namespace ProyectoVersion1.Controllers
             ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre", encargo.TrabajadorId);
             return View(encargo);
         }
-        [Authorize(Policy = "root")]
-
 
         // POST: Encargos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TrabajadorId,BienId,FechaInicio,FechaFin")] Encargo encargo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,TrabajadorId,BienId,EstadoActual,FechaInicio,FechaFin")] Encargo encargo)
         {
             if (id != encargo.Id)
             {
@@ -162,8 +153,6 @@ namespace ProyectoVersion1.Controllers
         }
 
         // GET: Encargos/Delete/5
-        [Authorize(Policy = "root")]
-
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -186,8 +175,6 @@ namespace ProyectoVersion1.Controllers
         // POST: Encargos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "root")]
-
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var encargo = await _context.Encargos.FindAsync(id);

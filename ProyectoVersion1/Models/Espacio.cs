@@ -13,7 +13,7 @@ namespace ProyectoVersion1.Models
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = "Campo tipo es obligatorio")]
-        [MinLength(5, ErrorMessage = "Tipo del espacio requiere mínimo 5 caracteres")]
+        [MinLength(1, ErrorMessage = "Tipo del espacio requiere mínimo 5 caracteres")]
         [MaxLength(30, ErrorMessage = "Tipo del espacio no debe superar los 30 carcateres")]
         [Display(Name = "Tipo")]
         public string Tipo { get; set; }

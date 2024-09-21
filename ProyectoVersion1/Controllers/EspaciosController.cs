@@ -46,9 +46,11 @@ namespace ProyectoVersion1.Controllers
             return View(espacio);
         }
 
+        public List<string> Tipos = new List<string>() { "Aula", "Laboratorio", "Taller", "Oficina" };
         // GET: Espacios/Create
         public IActionResult Create()
         {
+            ViewData["Tipo"] = new SelectList(Tipos);
             return View();
         }
 
@@ -62,6 +64,7 @@ namespace ProyectoVersion1.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Tipo"] = new SelectList(Tipos);
             return View(espacio);
         }
 
@@ -78,6 +81,7 @@ namespace ProyectoVersion1.Controllers
             {
                 return NotFound();
             }
+            ViewData["Tipo"] = new SelectList(Tipos);
             return View(espacio);
         }
 
@@ -113,6 +117,7 @@ namespace ProyectoVersion1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["Tipo"] = new SelectList(Tipos);
             return View(espacio);
         }
 

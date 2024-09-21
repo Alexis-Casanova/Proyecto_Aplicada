@@ -30,8 +30,8 @@ namespace ProyectoVersion1.Models
         public float Precio { get; set; }
 
         [Required(ErrorMessage = "Campo Estado Inicial es obligatorio")]
-        [MinLength(6, ErrorMessage = "Estado Inicial del bien requiere mínimo 6 caracteres")]
-        [MaxLength(13, ErrorMessage = "Estado Inicial del bien no debe superar los 13 carcateres")]
+        [MinLength(1, ErrorMessage = "Estado Inicial requiere mínimo 15 caracteres")]
+        [MaxLength(15, ErrorMessage = "Estado Inicial no debe superar los 200 carcateres")]
         [Display(Name = "Estado Inicial")]
         public string EstadoInicial { get; set; }
         [DataType(DataType.Date)]

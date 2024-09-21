@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="EstadoInicial" class="control-label"></label>
-                <input asp-for="EstadoInicial" class="form-control" />
+                <select asp-for="EstadoInicial" class="form-control" asp-items="ViewBag.EstadoInicial"></select>
                 <span asp-validation-for="EstadoInicial" class="text-danger"></span>
             </div>
             <div class="form-group">

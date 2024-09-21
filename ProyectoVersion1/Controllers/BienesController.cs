@@ -26,9 +26,6 @@ namespace ProyectoVersion1.Controllers
             _configuration = configuration;
         }
 
-
-
-
         // GET: Bienes / Reciben las consultas
         [BindProperty(SupportsGet =true)]
         public int? Pagina { get; set; }
@@ -66,11 +63,6 @@ namespace ProyectoVersion1.Controllers
             return View();
         }
 
-
-
-
-
-
         // GET: Bienes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -91,20 +83,24 @@ namespace ProyectoVersion1.Controllers
             return View(bien);
         }
 
+        public List<string> Estados = new List<string>() { "Activo", "Mantenimiento", "Dañado", "Perdido" };
+
         // GET: Bienes/Create
         public IActionResult Create()
         {
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Nombre");
             ViewData["EspacioId"] = new SelectList(_context.Espacios, "Id", "Nombre");
+            ViewData["EstadoInicial"] = new SelectList(Estados);
             return View();
         }
+
 
         // POST: Bienes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Codigo,Nombre,Descripcion,Precio,Estado,FechaIngreso,EspacioId,CategoriaId")] Bien bien)
+        public async Task<IActionResult> Create([Bind("Id,Codigo,Nombre,Descripcion,Precio,EstadoInicial,FechaIngreso,EspacioId,CategoriaId")] Bien bien)
         {
             if (ModelState.IsValid)
             {
@@ -114,6 +110,7 @@ namespace ProyectoVersion1.Controllers
             }
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Nombre", bien.CategoriaId);
             ViewData["EspacioId"] = new SelectList(_context.Espacios, "Id", "Nombre", bien.EspacioId);
+            ViewData["EstadoInicial"] = new SelectList(Estados);
             return View(bien);
         }
 
@@ -132,6 +129,7 @@ namespace ProyectoVersion1.Controllers
             }
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Nombre", bien.CategoriaId);
             ViewData["EspacioId"] = new SelectList(_context.Espacios, "Id", "Nombre", bien.EspacioId);
+            ViewData["EstadoInicial"] = new SelectList(Estados);
             return View(bien);
         }
 
@@ -140,7 +138,7 @@ namespace ProyectoVersion1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Codigo,Nombre,Descripcion,Precio,Estado,FechaIngreso,EspacioId,CategoriaId")] Bien bien)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Codigo,Nombre,Descripcion,Precio,EstadoInicial,FechaIngreso,EspacioId,CategoriaId")] Bien bien)
         {
             if (id != bien.Id)
             {
@@ -169,6 +167,7 @@ namespace ProyectoVersion1.Controllers
             }
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Nombre", bien.CategoriaId);
             ViewData["EspacioId"] = new SelectList(_context.Espacios, "Id", "Nombre", bien.EspacioId);
+            ViewData["EstadoInicial"] = new SelectList(Estados);
             return View(bien);
         }
 

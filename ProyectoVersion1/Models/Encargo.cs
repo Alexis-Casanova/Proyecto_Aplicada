@@ -15,8 +15,12 @@ namespace ProyectoVersion1.Models
         [Display(Name = "Bien")]
         public int BienId { get; set; }
         public virtual Bien? Bien { get; set; }
-        [DataType(DataType.Date)]
 
+        [Required(ErrorMessage = "Campo Estado Actual es obligatorio")]
+        [Display(Name = "Estado Actual")]
+        public string EstadoActual { get; set; }
+
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "Campo fecha de inicio es obligatorio")]
         [Display(Name = "Fecha de inicio")]
         public DateTime FechaInicio { get; set; }

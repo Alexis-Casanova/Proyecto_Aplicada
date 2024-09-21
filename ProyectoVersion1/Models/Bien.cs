@@ -5,7 +5,6 @@ namespace ProyectoVersion1.Models
 {
     public class Bien
     {
-        
         public int Id { get; set; }
         
         [Required(ErrorMessage = "Campo código es obligatorio")]
@@ -30,11 +29,11 @@ namespace ProyectoVersion1.Models
         [Display(Name = "Precio")]
         public float Precio { get; set; }
 
-        [Required(ErrorMessage = "Campo estado es obligatorio")]
-        [MinLength(6, ErrorMessage = "Estado del bien requiere mínimo 6 caracteres")]
-        [MaxLength(13, ErrorMessage = "Estado del bien no debe superar los 13 carcateres")]
-        [Display(Name = "Estado")]
-        public string Estado { get; set; }
+        [Required(ErrorMessage = "Campo Estado Inicial es obligatorio")]
+        [MinLength(6, ErrorMessage = "Estado Inicial del bien requiere mínimo 6 caracteres")]
+        [MaxLength(13, ErrorMessage = "Estado Inicial del bien no debe superar los 13 carcateres")]
+        [Display(Name = "Estado Inicial")]
+        public string EstadoInicial { get; set; }
         [DataType(DataType.Date)]
 
         [Required(ErrorMessage = "Campo fecha de ingreso es obligatorio")]

@@ -1,25 +1,38 @@
 ﻿@model ProyectoVersion1.Models.LoginViewModel
 
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="row w-100 mt-5">
+        <div class="col-lg-4 col-md-6 mx-auto mt-3">
+            
+            <div class="card p-4 shadow-lg">
+                <h2 class="text-center mb-4">Iniciar <strong>Sesión</strong></h2>
+                <form asp-asp-controller="Cuentas" action="LoginAdministrador" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Role" value="Administrador" />
 
-<div class="container">
-	<div class="row">
-		<div class="row">
-			<form asp-asp-controller="Cuentas" action="LoginAdministrador" method="post">
-				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-				<input hidden asp-for="Role" value="Administrador" />
+                    <div class="form-group mb-3">
+                        <label asp-for="Email" class="form-label">Usuario </label>
+                        <input asp-for="Email" class="form-control" placeholder="correo@ejemplo.com" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
 
-				<div class="form-group">
-					<label asp-for="Email" class="control-label"></label>
-					<input asp-for="Email" class="form-control" />
-					<span asp-validation-for="Email" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<label asp-for="Password" class="control-label"></label>
-					<input type="password" asp-for="Password" class="form-control" />
-					<span asp-validation-for="Password" class="text-danger"></span>
-				</div>
-				<input type="submit" value="Acceder" />
-			</form>
-		</div>
-	</div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Password" class="form-label">Contraseña </label>
+                        <input type="password" asp-for="Password" class="form-control" placeholder="Mín. 8 caracteres" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">Ingresar</button>
+                    </div>
+                </form>
+                <hr />
+                <div class="d-flex justify-content-center">
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-dark mb-3">
+                            <i class="fa-solid fa-backward"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

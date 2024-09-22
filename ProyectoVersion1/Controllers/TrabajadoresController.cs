@@ -28,7 +28,7 @@ namespace ProyectoVersion1.Controllers
             
 
         }
-        public List<string> Tipos = new List<string>() { "Docente", "Secretaria" };
+        public List<string> Tipos = new List<string>() { "Docente", "Secretaria", "Administrativo", "Técnico" };
         // GET: Trabajadores
         [BindProperty(SupportsGet =true)]
         public int? Pagina {  get; set; }

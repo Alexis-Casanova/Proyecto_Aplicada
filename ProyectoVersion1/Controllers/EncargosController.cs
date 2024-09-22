@@ -71,11 +71,14 @@ namespace ProyectoVersion1.Controllers
             return View(encargo);
         }
 
+        public List<string> Estados = new List<string>() { "Activo", "Mantenimiento", "Dañado", "Perdido" };
+
         // GET: Encargos/Create
         public IActionResult Create()
         {
             ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Nombre");
             ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre");
+            ViewData["EstadoActual"] = new SelectList(Estados);
             return View();
         }
 
@@ -94,6 +97,7 @@ namespace ProyectoVersion1.Controllers
             }
             ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Nombre", encargo.BienId);
             ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre", encargo.TrabajadorId);
+            ViewData["EstadoActual"] = new SelectList(Estados);
             return View(encargo);
         }
 
@@ -112,6 +116,7 @@ namespace ProyectoVersion1.Controllers
             }
             ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Nombre", encargo.BienId);
             ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre", encargo.TrabajadorId);
+            ViewData["EstadoActual"] = new SelectList(Estados);
             return View(encargo);
         }
 
@@ -149,6 +154,7 @@ namespace ProyectoVersion1.Controllers
             }
             ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Nombre", encargo.BienId);
             ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre", encargo.TrabajadorId);
+            ViewData["EstadoActual"] = new SelectList(Estados);
             return View(encargo);
         }
 

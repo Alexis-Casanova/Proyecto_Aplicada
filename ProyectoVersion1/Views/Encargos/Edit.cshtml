@@ -25,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="EstadoActual" class="control-label"></label>
-                <input asp-for="EstadoActual" class="form-control" />
+                <select asp-for="EstadoActual" class="form-control" asp-items="ViewBag.EstadoActual"></select>
                 <span asp-validation-for="EstadoActual" class="text-danger"></span>
             </div>
             <div class="form-group">

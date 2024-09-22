@@ -10,7 +10,7 @@ namespace ProyectoVersion1.Models
         [Required(ErrorMessage = "Campo código es obligatorio")]
         [MinLength(5, ErrorMessage = "Código del bien requiere mínimo 5 caracteres")]
         [MaxLength(10, ErrorMessage = "Código del bien no debe superar los 10 carcateres")]
-        [Display(Name = "Código")]
+        [Display(Name = "Código del Bien")]
         public string Codigo { get; set; }
 
         [Required(ErrorMessage = "Campo nombre es obligatorio")]

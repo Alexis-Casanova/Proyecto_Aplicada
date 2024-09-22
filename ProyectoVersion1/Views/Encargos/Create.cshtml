@@ -14,15 +14,22 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="TrabajadorId" class="control-label"></label>
-                <select asp-for="TrabajadorId" class ="form-control" asp-items="ViewBag.TrabajadorId"></select>
+                <select asp-for="TrabajadorId" class ="form-control" asp-items="ViewBag.TrabajadorId">
+                    <option value="" class="text-center">---Seleccionar---</option>
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="BienId" class="control-label"></label>
-                <select asp-for="BienId" class ="form-control" asp-items="ViewBag.BienId"></select>
+                <label class="control-label">Código del Bien</label>
+                <select asp-for="BienId" class ="form-control" asp-items="ViewBag.BienId">
+                    <option value="" class="text-center">---Seleccionar---</option>
+                </select>
+                <span asp-validation-for="BienId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EstadoActual" class="control-label"></label>
-                <select asp-for="EstadoActual" class="form-control" asp-items="ViewBag.EstadoActual"></select>
+                <select asp-for="EstadoActual" class="form-control" asp-items="ViewBag.EstadoActual">
+                    <option value="" class="text-center">---Seleccionar---</option>
+                </select>
                 <span asp-validation-for="EstadoActual" class="text-danger"></span>
             </div>
             <div class="form-group">

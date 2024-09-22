@@ -79,7 +79,7 @@ namespace ProyectoVersion1.Controllers
         // GET: Encargos/Create
         public IActionResult Create()
         {
-            ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Nombre");
+            ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Codigo");
             ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre");
             ViewData["EstadoActual"] = new SelectList(Estados,"","");
             return View();
@@ -110,7 +110,7 @@ namespace ProyectoVersion1.Controllers
                     _servicioNotificacion.Custom($"¡Encargo del Bien {encargo.Bien.Nombre} al trabajador {encargo.Trabajador.Nombre} creado correctamente!",5, "green", "fa fa-check");
                     return RedirectToAction(nameof(Index));
             }
-            ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Nombre", encargo.BienId);
+            ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Codigo", encargo.BienId);
             ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre", encargo.TrabajadorId);
             ViewData["EstadoActual"] = new SelectList(Estados,"","",encargo.EstadoActual);
             _servicioNotificacion.Custom($"Es necesario corregir los problemas para poder editar el encargo del Bien {encargo.BienId} al trabajador {encargo.TrabajadorId}", 5, "red", "fa fa-exclamation-circle");

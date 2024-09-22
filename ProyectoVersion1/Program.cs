@@ -8,10 +8,10 @@ using ProyectoVersion1.Data;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ProyectoVersion1Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ProyectoVersion1Context") ?? throw new InvalidOperationException("Connection string 'ProyectoVersion1Context' not found.")));
-
+//Configuracion de las notificaciones
 builder.Services.AddNotyf(config =>
 {
-    config.DurationInSeconds = 3;
+    config.DurationInSeconds = 5;
     config.IsDismissable = true;
     config.Position = NotyfPosition.BottomRight;
 }

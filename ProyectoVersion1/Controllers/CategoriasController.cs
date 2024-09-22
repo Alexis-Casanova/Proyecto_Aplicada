@@ -66,10 +66,10 @@ namespace ProyectoVersion1.Controllers
             {
                 _context.Add(categoria);
                 await _context.SaveChangesAsync();
-                _servicioNotificacion.Success($"¡Categoría {categoria.Nombre} creado correctamente!");
+                _servicioNotificacion.Custom($"¡Categoría {categoria.Nombre} creado correctamente!", 5, "green", "fa fa-check");
                 return RedirectToAction(nameof(Index));
             }
-            _servicioNotificacion.Error($"Es necesario corregir los problemas para poder crear la categoría {categoria.Nombre} ");
+            _servicioNotificacion.Custom($"Es necesario corregir los problemas para poder crear la categoría {categoria.Nombre}", 5, "red", "fa fa-exclamation-circle");
             return View(categoria);
         }
 
@@ -107,7 +107,7 @@ namespace ProyectoVersion1.Controllers
                 {
                     _context.Update(categoria);
                     await _context.SaveChangesAsync();
-                    _servicioNotificacion.Success($"¡Categoría {categoria.Nombre} editado correctamente!");
+                    _servicioNotificacion.Custom($"¡Categoría {categoria.Nombre} editado correctamente!", 5, "blue", "fa fa-cog");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -122,7 +122,7 @@ namespace ProyectoVersion1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            _servicioNotificacion.Error($"Es necesario corregir los problemas para poder editar la categoría {categoria.Nombre} ");
+            _servicioNotificacion.Custom($"Es necesario corregir los problemas para poder editar la categoría {categoria.Nombre} ", 5, "red", "fa fa-exclamation-circle");
             return View(categoria);
         }
 
@@ -154,11 +154,11 @@ namespace ProyectoVersion1.Controllers
             {
                 _context.Categorias.Remove(categoria);
                 await _context.SaveChangesAsync();
-                _servicioNotificacion.Success($"¡Categoría {categoria.Nombre} eliminado correctamente!");
+                _servicioNotificacion.Custom($"¡Categoría {categoria.Nombre} eliminado correctamente!", 5, "red", "fa fa-trash");
             }
             else
             {
-                _servicioNotificacion.Error($"Error al eliminar la categoría {categoria.Nombre} ");
+                _servicioNotificacion.Custom($"Error al eliminar la categoría {categoria.Nombre}", 5, "black", "fa fa-exclamation-circle");
             }
 
             return RedirectToAction(nameof(Index));

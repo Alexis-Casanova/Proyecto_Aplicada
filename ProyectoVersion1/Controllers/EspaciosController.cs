@@ -54,7 +54,7 @@ namespace ProyectoVersion1.Controllers
         // GET: Espacios/Create
         public IActionResult Create()
         {
-            ViewData["Tipo"] = new SelectList(Tipos);
+            ViewData["Tipo"] = new SelectList(Tipos,"","");
             return View();
         }
 
@@ -67,12 +67,12 @@ namespace ProyectoVersion1.Controllers
                 _context.Add(espacio);
                 await _context.SaveChangesAsync();
 
-                _servicioNotificacion.Success($"¡Espacio { espacio.Nombre } creado correctamente!");
+                _servicioNotificacion.Custom($"¡Espacio { espacio.Nombre } creado correctamente!", 5, "green", "fa fa-check");
 
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Tipo"] = new SelectList(Tipos);
-            _servicioNotificacion.Error($"Es necesario corregir los problemas para poder crear el espacio { espacio.Nombre } ");
+            ViewData["Tipo"] = new SelectList(Tipos, "", "",espacio.Tipo);
+            _servicioNotificacion.Custom($"Es necesario corregir los problemas para poder crear el espacio { espacio.Nombre } ", 5, "red", "fa fa-exclamation-circle");
             return View(espacio);
         }
 
@@ -89,7 +89,7 @@ namespace ProyectoVersion1.Controllers
             {
                 return NotFound();
             }
-            ViewData["Tipo"] = new SelectList(Tipos);
+            ViewData["Tipo"] = new SelectList(Tipos, "", "", espacio.Tipo);
             return View(espacio);
         }
 
@@ -111,7 +111,7 @@ namespace ProyectoVersion1.Controllers
                 {
                     _context.Update(espacio);
                     await _context.SaveChangesAsync();
-                    _servicioNotificacion.Success($"¡Espacio {espacio.Nombre} editado correctamente!");
+                    _servicioNotificacion.Custom($"¡Espacio {espacio.Nombre} editado correctamente!", 5, "blue", "fa fa-cog");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -126,8 +126,8 @@ namespace ProyectoVersion1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Tipo"] = new SelectList(Tipos);
-            _servicioNotificacion.Error($"Es necesario corregir los problemas para poder editar el espacio {espacio.Nombre} ");
+            ViewData["Tipo"] = new SelectList(Tipos, "", "", espacio.Tipo);
+            _servicioNotificacion.Custom($"Es necesario corregir los problemas para poder editar el espacio {espacio.Nombre}", 5, "red", "fa fa-exclamation-circle");
             return View(espacio);
         }
 
@@ -160,11 +160,11 @@ namespace ProyectoVersion1.Controllers
                 _context.Espacios.Remove(espacio);
                 await _context.SaveChangesAsync();
 
-                _servicioNotificacion.Success($"¡Espacio {espacio.Nombre} eliminado correctamente!");
+                _servicioNotificacion.Custom($"¡Espacio {espacio.Nombre} eliminado correctamente!", 5, "red", "fa fa-trash");
             }
             else
             {
-                _servicioNotificacion.Error($"Error al eliminar el espacio {espacio.Nombre} ");
+                _servicioNotificacion.Custom($"Error al eliminar el espacio {espacio.Nombre}", 5, "black", "fa fa-exclamation-circle");
             }
 
             return RedirectToAction(nameof(Index));

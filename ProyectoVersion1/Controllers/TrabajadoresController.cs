@@ -76,6 +76,7 @@ namespace ProyectoVersion1.Controllers
         // GET: Trabajadores/Create
         public IActionResult Create()
         {
+            ViewData["Tipo"] = new SelectList(Tipos,"","");
             return View();
         }
 
@@ -90,10 +91,11 @@ namespace ProyectoVersion1.Controllers
             {
                 _context.Add(trabajador);
                 await _context.SaveChangesAsync();
-                _servicioNotificacion.Success($"¡Trabajador {trabajador.Nombre} creado correctamente!");
+                _servicioNotificacion.Custom($"¡Trabajador {trabajador.Nombre} creado correctamente!", 5, "green", "fa fa-check");
                 return RedirectToAction(nameof(Index));
             }
-            _servicioNotificacion.Error($"Es necesario corregir los problemas para poder crear al trabajador {trabajador.Nombre} ");
+            _servicioNotificacion.Custom($"Es necesario corregir los problemas para poder crear al trabajador {trabajador.Nombre}", 5, "red", "fa fa-exclamation-circle");
+            ViewData["Tipo"] = new SelectList(Tipos,"","",trabajador.Tipo);
             return View(trabajador);
         }
 
@@ -110,6 +112,7 @@ namespace ProyectoVersion1.Controllers
             {
                 return NotFound();
             }
+            ViewData["Tipo"] = new SelectList(Tipos, "", "", trabajador.Tipo);
             return View(trabajador);
         }
 
@@ -133,7 +136,7 @@ namespace ProyectoVersion1.Controllers
                 {
                     _context.Update(trabajador);
                     await _context.SaveChangesAsync();
-                    _servicioNotificacion.Success($"¡Trabajador {trabajador.Nombre} editado correctamente!");
+                    _servicioNotificacion.Custom($"¡Trabajador {trabajador.Nombre} editado correctamente!", 5, "blue", "fa fa-cog");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -148,7 +151,8 @@ namespace ProyectoVersion1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            _servicioNotificacion.Error($"Es necesario corregir los problemas para poder editar al trabajador {trabajador.Nombre} ");
+            ViewData["Tipo"] = new SelectList(Tipos, "", "", trabajador.Tipo);
+            _servicioNotificacion.Custom($"Es necesario corregir los problemas para poder editar al trabajador {trabajador.Nombre}", 5, "red", "fa fa-exclamation-circle");
             return View(trabajador);
         }
 
@@ -180,11 +184,11 @@ namespace ProyectoVersion1.Controllers
             {
                 _context.Trabajadores.Remove(trabajador);
                 await _context.SaveChangesAsync();
-                _servicioNotificacion.Success($"¡Trabajador {trabajador.Nombre} eliminado correctamente!");
+                _servicioNotificacion.Custom($"¡Trabajador {trabajador.Nombre} eliminado correctamente!", 5, "red", "fa fa-trash");
             }
             else
             {
-                _servicioNotificacion.Error($"Error al eliminar al trabajador {trabajador.Nombre} ");
+                _servicioNotificacion.Custom($"Error al eliminar al trabajador {trabajador.Nombre}", 5, "black", "fa fa-exclamation-circle");
             }
             return RedirectToAction(nameof(Index));
         }

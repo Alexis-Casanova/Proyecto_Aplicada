@@ -93,7 +93,7 @@ namespace ProyectoVersion1.Controllers
         {
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Nombre");
             ViewData["EspacioId"] = new SelectList(_context.Espacios, "Id", "Nombre");
-            ViewData["EstadoInicial"] = new SelectList(Estados);
+            ViewData["EstadoInicial"] = new SelectList(Estados,"","");
             return View();
         }
 
@@ -109,13 +109,13 @@ namespace ProyectoVersion1.Controllers
             {
                 _context.Add(bien);
                 await _context.SaveChangesAsync();
-                _servicioNotificacion.Success($"¡Bien {bien.Nombre} creado correctamente!");
+                _servicioNotificacion.Custom($"¡Bien {bien.Nombre} creado correctamente!", 5, "green", "fa fa-check");
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Nombre", bien.CategoriaId);
             ViewData["EspacioId"] = new SelectList(_context.Espacios, "Id", "Nombre", bien.EspacioId);
-            ViewData["EstadoInicial"] = new SelectList(Estados);
-            _servicioNotificacion.Error($"Es necesario corregir los problemas para poder crear el bien {bien.Nombre} ");
+            ViewData["EstadoInicial"] = new SelectList(Estados, "", "",bien.EstadoInicial);
+            _servicioNotificacion.Custom($"Es necesario corregir los problemas para poder crear el bien {bien.Nombre}", 5, "red", "fa fa-exclamation-circle");
             return View(bien);
         }
 
@@ -134,7 +134,7 @@ namespace ProyectoVersion1.Controllers
             }
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Nombre", bien.CategoriaId);
             ViewData["EspacioId"] = new SelectList(_context.Espacios, "Id", "Nombre", bien.EspacioId);
-            ViewData["EstadoInicial"] = new SelectList(Estados);
+            ViewData["EstadoInicial"] = new SelectList(Estados, "", "", bien.EstadoInicial);
             return View(bien);
         }
 
@@ -156,7 +156,7 @@ namespace ProyectoVersion1.Controllers
                 {
                     _context.Update(bien);
                     await _context.SaveChangesAsync();
-                    _servicioNotificacion.Success($"¡Bien {bien.Nombre} editado correctamente!");
+                    _servicioNotificacion.Custom($"¡Bien {bien.Nombre} editado correctamente!", 5, "blue", "fa fa-cog");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -173,8 +173,8 @@ namespace ProyectoVersion1.Controllers
             }
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Nombre", bien.CategoriaId);
             ViewData["EspacioId"] = new SelectList(_context.Espacios, "Id", "Nombre", bien.EspacioId);
-            ViewData["EstadoInicial"] = new SelectList(Estados);
-            _servicioNotificacion.Error($"Es necesario corregir los problemas para poder editar el bien {bien.Nombre} ");
+            ViewData["EstadoInicial"] = new SelectList(Estados, "", "", bien.EstadoInicial);
+            _servicioNotificacion.Custom($"Es necesario corregir los problemas para poder editar el bien {bien.Nombre}", 5, "red", "fa fa-exclamation-circle");
             return View(bien);
         }
 
@@ -208,11 +208,11 @@ namespace ProyectoVersion1.Controllers
             {
                 _context.Bienes.Remove(bien);
                 await _context.SaveChangesAsync();
-                _servicioNotificacion.Success($"¡Bien {bien.Nombre} eliminado correctamente!");
+                _servicioNotificacion.Custom($"¡Bien {bien.Nombre} eliminado correctamente!", 5, "red", "fa fa-trash");
             }
             else
             {
-                _servicioNotificacion.Error($"Error al eliminar el bien {bien.Nombre} ");
+                _servicioNotificacion.Custom($"Error al eliminar el bien {bien.Nombre}", 5, "black", "fa fa-exclamation-circle");
             }
             return RedirectToAction(nameof(Index));
         }

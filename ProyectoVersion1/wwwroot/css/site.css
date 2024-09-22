@@ -20,3 +20,59 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.notyf__toast {
+    position: relative;
+    width: 100% !important;
+    max-width: 500px !important;
+    min-width: 350px !important;
+    min-height: 60px !important;
+    margin: 10px auto !important;
+    border-radius: 5px !important;
+    padding: 15px 20px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    word-wrap: break-word !important;
+    white-space: normal !important;
+    background-color: transparent !important;
+    overflow: hidden !important;
+}
+
+.notyf__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.notyf__dismiss-btn {
+    font-size: 1.5em !important;
+    cursor: pointer !important;
+    background: none !important;
+    border: none !important;
+    color: white !important;
+    padding: 10px !important;
+    align-self: center !important;
+}
+
+.notyf__message {
+    font-size: 1em !important;
+    font-weight: bold !important;
+    line-height: 1.2 !important;
+    flex: 1;
+    color: white !important;
+    word-wrap: break-word !important;
+    white-space: normal !important;
+}
+
+.notyf__icon {
+    margin-right: 10px !important;
+    flex-shrink: 0;
+}
+
+
+.fa-trash {
+    color: white !important;
+}

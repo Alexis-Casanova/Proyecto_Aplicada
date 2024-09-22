@@ -81,7 +81,7 @@ namespace ProyectoVersion1.Controllers
         {
             ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Nombre");
             ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre");
-            ViewData["EstadoActual"] = new SelectList(Estados);
+            ViewData["EstadoActual"] = new SelectList(Estados,"","");
             return View();
         }
 
@@ -96,13 +96,24 @@ namespace ProyectoVersion1.Controllers
             {
                 _context.Add(encargo);
                 await _context.SaveChangesAsync();
-                _servicioNotificacion.Success($"¡Encargo del Bien {encargo.BienId} al trabajador {encargo.TrabajadorId} creado correctamente!");
-                return RedirectToAction(nameof(Index));
+
+                //Para mostrar el nombre del bien y del trabajador en las notifiaciones
+                encargo.Bien = await _context.Bienes.FirstOrDefaultAsync(b => b.Id == encargo.BienId);
+                encargo.Trabajador = await _context.Trabajadores.FirstOrDefaultAsync(t => t.Id == encargo.TrabajadorId);
+
+                if (encargo.Bien == null || encargo.Trabajador == null)
+                {
+                    _servicioNotificacion.Error("Error: No se pudo encontrar el Bien o el Trabajador.");
+                    return View(encargo);
+                }
+
+                    _servicioNotificacion.Custom($"¡Encargo del Bien {encargo.Bien.Nombre} al trabajador {encargo.Trabajador.Nombre} creado correctamente!",5, "green", "fa fa-check");
+                    return RedirectToAction(nameof(Index));
             }
             ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Nombre", encargo.BienId);
             ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre", encargo.TrabajadorId);
-            ViewData["EstadoActual"] = new SelectList(Estados);
-            _servicioNotificacion.Error($"Es necesario corregir los problemas para poder crear el encargo del Bien {encargo.BienId} al trabajador {encargo.TrabajadorId}");
+            ViewData["EstadoActual"] = new SelectList(Estados,"","",encargo.EstadoActual);
+            _servicioNotificacion.Custom($"Es necesario corregir los problemas para poder editar el encargo del Bien {encargo.BienId} al trabajador {encargo.TrabajadorId}", 5, "red", "fa fa-exclamation-circle");
             return View(encargo);
         }
 
@@ -121,7 +132,7 @@ namespace ProyectoVersion1.Controllers
             }
             ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Nombre", encargo.BienId);
             ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre", encargo.TrabajadorId);
-            ViewData["EstadoActual"] = new SelectList(Estados);
+            ViewData["EstadoActual"] = new SelectList(Estados, "", "", encargo.EstadoActual);
             return View(encargo);
         }
 
@@ -137,13 +148,24 @@ namespace ProyectoVersion1.Controllers
                 return NotFound();
             }
 
+            //Para mostrar el nombre del bien y del trabajador en las notifiaciones
+            encargo.Bien = await _context.Bienes.FirstOrDefaultAsync(b => b.Id == encargo.BienId);
+            encargo.Trabajador = await _context.Trabajadores.FirstOrDefaultAsync(t => t.Id == encargo.TrabajadorId);
+
+            if (encargo.Bien == null || encargo.Trabajador == null)
+            {
+                _servicioNotificacion.Error("Error: No se pudo encontrar el Bien o el Trabajador.");
+                return View(encargo);
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
                     _context.Update(encargo);
                     await _context.SaveChangesAsync();
-                    _servicioNotificacion.Success($"¡Encargo del Bien {encargo.BienId} al trabajador {encargo.TrabajadorId} editado correctamente!");
+                    _servicioNotificacion.Custom($"¡Encargo del Bien {encargo.Bien.Nombre} al trabajador {encargo.Trabajador.Nombre} creado correctamente!", 5, "blue", "fa fa-cog");
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -160,8 +182,8 @@ namespace ProyectoVersion1.Controllers
             }
             ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Nombre", encargo.BienId);
             ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre", encargo.TrabajadorId);
-            ViewData["EstadoActual"] = new SelectList(Estados);
-            _servicioNotificacion.Error($"Es necesario corregir los problemas para poder editar el encargo del Bien {encargo.BienId} al trabajador {encargo.TrabajadorId}");
+            ViewData["EstadoActual"] = new SelectList(Estados, "", "", encargo.EstadoActual);
+            _servicioNotificacion.Custom($"Es necesario corregir los problemas para poder editar el encargo del Bien {encargo.Bien.Nombre} al trabajador {encargo.Trabajador.Nombre}", 5, "red", "fa fa-exclamation-circle");
             return View(encargo);
         }
 
@@ -191,15 +213,27 @@ namespace ProyectoVersion1.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var encargo = await _context.Encargos.FindAsync(id);
+
+            ///Para mostrar el nombre del bien y del trabajador en las notifiaciones
+            encargo.Bien = await _context.Bienes.FirstOrDefaultAsync(b => b.Id == encargo.BienId);
+            encargo.Trabajador = await _context.Trabajadores.FirstOrDefaultAsync(t => t.Id == encargo.TrabajadorId);
+
+            if (encargo.Bien == null || encargo.Trabajador == null)
+            {
+                _servicioNotificacion.Error("Error: No se pudo encontrar el Bien o el Trabajador.");
+                return View(encargo);
+            }
+
             if (encargo != null)
             {
                 _context.Encargos.Remove(encargo);
                 await _context.SaveChangesAsync();
-                _servicioNotificacion.Success($"¡Encargo del Bien {encargo.BienId} al trabajador {encargo.TrabajadorId} eliminado correctamente!");
+                _servicioNotificacion.Custom($"¡Encargo del Bien {encargo.Bien.Nombre} al trabajador {encargo.Trabajador.Nombre} eliminado correctamente!", 5, "red", "fa fa-trash");
             }
             else
             {
-                _servicioNotificacion.Error($"Error al eliminar el encargo del Bien {encargo.BienId} al trabajador {encargo.TrabajadorId}");
+                _servicioNotificacion.Custom($"Error al eliminar el encargo del Bien {encargo.Bien.Nombre} al trabajador {encargo.Trabajador.Nombre}", 5, "black", "fa fa-exclamation-circle");
+                return View(encargo);
             }
             return RedirectToAction(nameof(Index));
         }

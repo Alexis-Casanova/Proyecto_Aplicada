@@ -39,7 +39,7 @@ namespace ProyectoVersion1.Models
         [Display(Name = "Cargo")]
         public string Cargo { get; set; }
         [Required(ErrorMessage = "Campo tipo de Trabajador es obligatorio")]
-        [MinLength(5, ErrorMessage = "Tipo de Trabajador requiere mínimo 5 caracteres")]
+        [MinLength(1, ErrorMessage = "Tipo de Trabajador requiere mínimo 1 caracter")]
         [MaxLength(50, ErrorMessage = "Tipo de Trabajador no debe superar los 50 carcateres")]
         [Display(Name = "Tipo de Trabajador")]
         public string Tipo { get; set; }

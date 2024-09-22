@@ -35,7 +35,7 @@
             <div class="form-group">
                 <label asp-for="EstadoInicial" class="control-label"></label>
                 <select asp-for="EstadoInicial" class="form-control" asp-items="ViewBag.EstadoInicial">
-                    <option value="" class="text-center">---Seleccionar---</option>
+                    <option value="">---Seleccionar Estado Inicial---</option>
                 </select>
                 <span asp-validation-for="EstadoInicial" class="text-danger"></span>
             </div>
@@ -47,14 +47,16 @@
             <div class="form-group">
                 <label asp-for="EspacioId" class="control-label"></label>
                 <select asp-for="EspacioId" class ="form-control" asp-items="ViewBag.EspacioId">
-                    <option value="" class="text-center">---Seleccionar---</option>
+                    <option value="">---Seleccionar Espacio---</option>
                 </select>
+                <span asp-validation-for="EspacioId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CategoriaId" class="control-label"></label>
                 <select asp-for="CategoriaId" class ="form-control" asp-items="ViewBag.CategoriaId">
-                    <option value="" class="text-center">---Seleccionar---</option>
+                    <option value="">---Seleccionar Categoría---</option>
                 </select>
+                <span asp-validation-for="CategoriaId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

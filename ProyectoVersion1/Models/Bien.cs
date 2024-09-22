@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Routing.Constraints;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProyectoVersion1.Models
 {
     public class Bien
     {
         public int Id { get; set; }
-        
+
         [Required(ErrorMessage = "Campo código es obligatorio")]
         [MinLength(5, ErrorMessage = "Código del bien requiere mínimo 5 caracteres")]
         [MaxLength(10, ErrorMessage = "Código del bien no debe superar los 10 carcateres")]
@@ -43,12 +44,14 @@ namespace ProyectoVersion1.Models
         [Required(ErrorMessage = "Campo espacio de ingreso es obligatorio")]
         [Display(Name = "Espacio")]
         public int EspacioId { get; set; }
-        public virtual Espacio Espacio { get;set; }
+        public virtual Espacio Espacio { get; set; }
 
         [Required(ErrorMessage = "Campo categoría de ingreso es obligatorio")]
         [Display(Name = "Categoría")]
-        public int CategoriaId { get;set; }
+        public int CategoriaId { get; set; }
         public virtual Categoria Categoria { get; set; }
 
+        [NotMapped]
+        public string CodigoNombre => $"{Codigo} - {Nombre}";
     }
 }

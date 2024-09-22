@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -17,11 +18,13 @@ namespace ProyectoVersion1.Controllers
     {
         private readonly ProyectoVersion1Context _context;
         private readonly IConfiguration _configuration;
+        private readonly INotyfService _servicioNotificacion;
 
-        public EncargosController(ProyectoVersion1Context context, IConfiguration configuration)
+        public EncargosController(ProyectoVersion1Context context, IConfiguration configuration, INotyfService oNotificacion)
         {
             _context = context;
             _configuration = configuration;
+            _servicioNotificacion = oNotificacion;
         }
 
         // GET: Encargos
@@ -93,11 +96,13 @@ namespace ProyectoVersion1.Controllers
             {
                 _context.Add(encargo);
                 await _context.SaveChangesAsync();
+                _servicioNotificacion.Success($"¡Encargo del Bien {encargo.BienId} al trabajador {encargo.TrabajadorId} creado correctamente!");
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Nombre", encargo.BienId);
             ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre", encargo.TrabajadorId);
             ViewData["EstadoActual"] = new SelectList(Estados);
+            _servicioNotificacion.Error($"Es necesario corregir los problemas para poder crear el encargo del Bien {encargo.BienId} al trabajador {encargo.TrabajadorId}");
             return View(encargo);
         }
 
@@ -138,6 +143,7 @@ namespace ProyectoVersion1.Controllers
                 {
                     _context.Update(encargo);
                     await _context.SaveChangesAsync();
+                    _servicioNotificacion.Success($"¡Encargo del Bien {encargo.BienId} al trabajador {encargo.TrabajadorId} editado correctamente!");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -155,6 +161,7 @@ namespace ProyectoVersion1.Controllers
             ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Nombre", encargo.BienId);
             ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre", encargo.TrabajadorId);
             ViewData["EstadoActual"] = new SelectList(Estados);
+            _servicioNotificacion.Error($"Es necesario corregir los problemas para poder editar el encargo del Bien {encargo.BienId} al trabajador {encargo.TrabajadorId}");
             return View(encargo);
         }
 
@@ -187,9 +194,13 @@ namespace ProyectoVersion1.Controllers
             if (encargo != null)
             {
                 _context.Encargos.Remove(encargo);
+                await _context.SaveChangesAsync();
+                _servicioNotificacion.Success($"¡Encargo del Bien {encargo.BienId} al trabajador {encargo.TrabajadorId} eliminado correctamente!");
             }
-
-            await _context.SaveChangesAsync();
+            else
+            {
+                _servicioNotificacion.Error($"Error al eliminar el encargo del Bien {encargo.BienId} al trabajador {encargo.TrabajadorId}");
+            }
             return RedirectToAction(nameof(Index));
         }
 

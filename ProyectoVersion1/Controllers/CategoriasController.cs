@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,10 +17,12 @@ namespace ProyectoVersion1.Controllers
     public class CategoriasController : Controller
     {
         private readonly ProyectoVersion1Context _context;
+        private readonly INotyfService _servicioNotificacion;
 
-        public CategoriasController(ProyectoVersion1Context context)
+        public CategoriasController(ProyectoVersion1Context context, INotyfService oNotificacion)
         {
             _context = context;
+            _servicioNotificacion = oNotificacion;
         }
 
         // GET: Categorias
@@ -63,8 +66,10 @@ namespace ProyectoVersion1.Controllers
             {
                 _context.Add(categoria);
                 await _context.SaveChangesAsync();
+                _servicioNotificacion.Success($"¡Categoría {categoria.Nombre} creado correctamente!");
                 return RedirectToAction(nameof(Index));
             }
+            _servicioNotificacion.Error($"Es necesario corregir los problemas para poder crear la categoría {categoria.Nombre} ");
             return View(categoria);
         }
 
@@ -102,6 +107,7 @@ namespace ProyectoVersion1.Controllers
                 {
                     _context.Update(categoria);
                     await _context.SaveChangesAsync();
+                    _servicioNotificacion.Success($"¡Categoría {categoria.Nombre} editado correctamente!");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -116,6 +122,7 @@ namespace ProyectoVersion1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            _servicioNotificacion.Error($"Es necesario corregir los problemas para poder editar la categoría {categoria.Nombre} ");
             return View(categoria);
         }
 
@@ -146,9 +153,14 @@ namespace ProyectoVersion1.Controllers
             if (categoria != null)
             {
                 _context.Categorias.Remove(categoria);
+                await _context.SaveChangesAsync();
+                _servicioNotificacion.Success($"¡Categoría {categoria.Nombre} eliminado correctamente!");
+            }
+            else
+            {
+                _servicioNotificacion.Error($"Error al eliminar la categoría {categoria.Nombre} ");
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

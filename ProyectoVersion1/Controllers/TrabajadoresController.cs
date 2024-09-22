@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -19,15 +20,16 @@ namespace ProyectoVersion1.Controllers
         
         private readonly ProyectoVersion1Context _context;
         private readonly IConfiguration _configuration;
+        private readonly INotyfService _servicioNotificacion;
 
-        public TrabajadoresController(ProyectoVersion1Context context, IConfiguration configuration)
+        public TrabajadoresController(ProyectoVersion1Context context, IConfiguration configuration, INotyfService oNotificacion)
         {
        
             _context = context;
             _configuration = configuration;
-            
-
+            _servicioNotificacion = oNotificacion;
         }
+
         public List<string> Tipos = new List<string>() { "Docente", "Secretaria", "Administrativo", "Técnico" };
         // GET: Trabajadores
         [BindProperty(SupportsGet =true)]
@@ -52,12 +54,6 @@ namespace ProyectoVersion1.Controllers
             }
             return View();
         }
-
-      
-
-        
-
-
 
         // GET: Trabajadores/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -94,8 +90,10 @@ namespace ProyectoVersion1.Controllers
             {
                 _context.Add(trabajador);
                 await _context.SaveChangesAsync();
+                _servicioNotificacion.Success($"¡Trabajador {trabajador.Nombre} creado correctamente!");
                 return RedirectToAction(nameof(Index));
             }
+            _servicioNotificacion.Error($"Es necesario corregir los problemas para poder crear al trabajador {trabajador.Nombre} ");
             return View(trabajador);
         }
 
@@ -135,6 +133,7 @@ namespace ProyectoVersion1.Controllers
                 {
                     _context.Update(trabajador);
                     await _context.SaveChangesAsync();
+                    _servicioNotificacion.Success($"¡Trabajador {trabajador.Nombre} editado correctamente!");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -149,6 +148,7 @@ namespace ProyectoVersion1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            _servicioNotificacion.Error($"Es necesario corregir los problemas para poder editar al trabajador {trabajador.Nombre} ");
             return View(trabajador);
         }
 
@@ -179,9 +179,13 @@ namespace ProyectoVersion1.Controllers
             if (trabajador != null)
             {
                 _context.Trabajadores.Remove(trabajador);
+                await _context.SaveChangesAsync();
+                _servicioNotificacion.Success($"¡Trabajador {trabajador.Nombre} eliminado correctamente!");
             }
-
-            await _context.SaveChangesAsync();
+            else
+            {
+                _servicioNotificacion.Error($"Error al eliminar al trabajador {trabajador.Nombre} ");
+            }
             return RedirectToAction(nameof(Index));
         }
 

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -19,11 +20,13 @@ namespace ProyectoVersion1.Controllers
     {
         private readonly ProyectoVersion1Context _context;
         private readonly IConfiguration _configuration;
+        private readonly INotyfService _servicioNotificacion;
 
-        public BienesController(ProyectoVersion1Context context, IConfiguration configuration)
+        public BienesController(ProyectoVersion1Context context, IConfiguration configuration, INotyfService oNotificacion)
         {
             _context = context;
             _configuration = configuration;
+            _servicioNotificacion = oNotificacion;
         }
 
         // GET: Bienes / Reciben las consultas
@@ -106,11 +109,13 @@ namespace ProyectoVersion1.Controllers
             {
                 _context.Add(bien);
                 await _context.SaveChangesAsync();
+                _servicioNotificacion.Success($"¡Bien {bien.Nombre} creado correctamente!");
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Nombre", bien.CategoriaId);
             ViewData["EspacioId"] = new SelectList(_context.Espacios, "Id", "Nombre", bien.EspacioId);
             ViewData["EstadoInicial"] = new SelectList(Estados);
+            _servicioNotificacion.Error($"Es necesario corregir los problemas para poder crear el bien {bien.Nombre} ");
             return View(bien);
         }
 
@@ -151,6 +156,7 @@ namespace ProyectoVersion1.Controllers
                 {
                     _context.Update(bien);
                     await _context.SaveChangesAsync();
+                    _servicioNotificacion.Success($"¡Bien {bien.Nombre} editado correctamente!");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -168,6 +174,7 @@ namespace ProyectoVersion1.Controllers
             ViewData["CategoriaId"] = new SelectList(_context.Categorias, "Id", "Nombre", bien.CategoriaId);
             ViewData["EspacioId"] = new SelectList(_context.Espacios, "Id", "Nombre", bien.EspacioId);
             ViewData["EstadoInicial"] = new SelectList(Estados);
+            _servicioNotificacion.Error($"Es necesario corregir los problemas para poder editar el bien {bien.Nombre} ");
             return View(bien);
         }
 
@@ -200,9 +207,13 @@ namespace ProyectoVersion1.Controllers
             if (bien != null)
             {
                 _context.Bienes.Remove(bien);
+                await _context.SaveChangesAsync();
+                _servicioNotificacion.Success($"¡Bien {bien.Nombre} eliminado correctamente!");
             }
-
-            await _context.SaveChangesAsync();
+            else
+            {
+                _servicioNotificacion.Error($"Error al eliminar el bien {bien.Nombre} ");
+            }
             return RedirectToAction(nameof(Index));
         }
 

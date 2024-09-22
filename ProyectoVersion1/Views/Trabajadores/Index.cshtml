@@ -9,7 +9,7 @@
     <form asp-controller="Trabajadores" asp-action="Index" method="get">
         <div class="input-group">
             <select name="buscaTipo" value="@ViewBag.BuscaTipo" class="form-control" placeholder="Consulta por Cargo" asp-items="@ViewBag.Tipos">
-                <option value="">---Buscar Estado---</option>
+                <option value="">---Buscar Tipo---</option>
             </select>
             <button type="submit" class="btn btn-outline-primary">Ver</button>
             <a asp-controller="Trabajadores" asp-action="Index" class="btn btn-secondary">Listar</a>

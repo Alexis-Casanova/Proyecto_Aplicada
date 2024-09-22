@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ProyectoVersion1.Encriptacion;
+using System.ComponentModel.DataAnnotations;
+using static ProyectoVersion1.Validacion.ValidacionEmailTrabajador;
 
 namespace ProyectoVersion1.Models
 {
@@ -18,14 +20,19 @@ namespace ProyectoVersion1.Models
         [MinLength(5, ErrorMessage = "Email del trabajador requiere mínimo 5 caracteres")]
         [MaxLength(60, ErrorMessage = "Email del trabajador no debe superar los 60 carcateres")]
         [Display(Name = "Email")]
+        [Repetido]
         public string Email { get; set; }
         [DataType(DataType.Password)]
 
         [Required(ErrorMessage = "Campo contraseña es obligatorio")]
-        [MinLength(8, ErrorMessage = "Contraseña del trabajador requiere mínimo 8 caracteres")]
-        [MaxLength(15, ErrorMessage = "Contraseña del trabajador no debe superar los 15 carcateres")]
+        [MinLength(4, ErrorMessage = "Contraseña del trabajador requiere mínimo 4 caracteres")]
         [Display(Name = "Contraseña")]
-        public string Contraseña { get; set; }
+        public string Contraseña
+        {
+            get => _contraseña;
+            set => _contraseña = Encriptar.GetSHA256(value);
+        }
+        private string _contraseña;
 
         [Required(ErrorMessage = "Campo teléfono es obligatorio")]
         [MinLength(9, ErrorMessage = "Teléfono del trabajador requiere mínimo 9 caracteres")]

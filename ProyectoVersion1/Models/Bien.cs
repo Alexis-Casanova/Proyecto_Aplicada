@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Routing.Constraints;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static ProyectoVersion1.Validacion.ValidacionCodigoBien;
 
 namespace ProyectoVersion1.Models
 {
@@ -18,6 +19,7 @@ namespace ProyectoVersion1.Models
         [MinLength(5, ErrorMessage = "Nombre del bien requiere mínimo 5 caracteres")]
         [MaxLength(20, ErrorMessage = "Nombre del bien no debe superar los 15 carcateres")]
         [Display(Name = "Nombre")]
+        [Repetido]
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = "Campo descripción es obligatorio")]

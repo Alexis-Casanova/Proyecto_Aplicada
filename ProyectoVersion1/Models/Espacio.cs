@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static ProyectoVersion1.Validacion.ValidacionNombreEspacio;
 
 namespace ProyectoVersion1.Models
 {
@@ -10,6 +11,7 @@ namespace ProyectoVersion1.Models
         [MinLength(5, ErrorMessage = "Nombre del espacio requiere mínimo 5 caracteres")]
         [MaxLength(30, ErrorMessage = "Nombre del espacio no debe superar los 30 carcateres")]
         [Display(Name = "Nombre")]
+        [Repetido]
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = "Campo tipo es obligatorio")]

@@ -24,8 +24,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options =>
     {
         options.Cookie.Name = "UserLogin";
-        options.LoginPath = "/Home/Index";
-        options.AccessDeniedPath = "/Home/Index";
+        options.LoginPath = "/Home/NotFound";
+        options.AccessDeniedPath = "/Home/NotFound";
     });
 
 builder.Services.AddAuthorization(options =>
@@ -59,6 +59,17 @@ using(var inicio = app.Services.CreateScope())
 }
 //Agregar Rotativa
 RotativaConfiguration.Setup(app.Environment.WebRootPath, "Rotativa");
+
+app.UseStatusCodePages(async context =>
+{
+    var response = context.HttpContext.Response;
+
+    if (response.StatusCode == 404)
+    {
+        // Redirige a la vista 404 personalizada
+        response.Redirect("/Error/404");
+    }
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

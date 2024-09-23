@@ -1,0 +1,12 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Si usas un layout global
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center">
+        <h1 class="display-3 text-danger">Página no encontrada</h1>
+        <p class="lead">Lo sentimos, no se pudo acceder a la página que buscas.</p>
+        <a href="@Url.Action("Index", "Home")" class="btn btn-dark mt-3">Volver a la página principal</a>
+    </div>
+</div>

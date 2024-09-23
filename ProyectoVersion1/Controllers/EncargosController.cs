@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCore;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -93,14 +94,24 @@ namespace ProyectoVersion1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,TrabajadorId,BienId,EstadoActual,FechaInicio,FechaFin")] Encargo encargo)
         {
+            //Para mostrar el nombre del bien y del tr abajador en las notifiaciones
+            encargo.Bien = await _context.Bienes.FirstOrDefaultAsync(b => b.Id == encargo.BienId);
+            encargo.Trabajador = await _context.Trabajadores.FirstOrDefaultAsync(t => t.Id == encargo.TrabajadorId);
+
+                    ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "CodigoNombre", encargo.BienId);
+                    ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre", encargo.TrabajadorId);
+                    ViewData["EstadoActual"] = new SelectList(Estados, "", "", encargo.EstadoActual);
             if (ModelState.IsValid)
             {
+                if(encargo.FechaInicio > encargo.FechaFin)
+                {
+                    
+                    _servicioNotificacion.Error("Error: Las fechas no son correctas.");
+                    return View(encargo);
+                }
+
                 _context.Add(encargo);
                 await _context.SaveChangesAsync();
-
-                //Para mostrar el nombre del bien y del trabajador en las notifiaciones
-                encargo.Bien = await _context.Bienes.FirstOrDefaultAsync(b => b.Id == encargo.BienId);
-                encargo.Trabajador = await _context.Trabajadores.FirstOrDefaultAsync(t => t.Id == encargo.TrabajadorId);
 
                 if (encargo.Bien == null || encargo.Trabajador == null)
                 {
@@ -111,9 +122,7 @@ namespace ProyectoVersion1.Controllers
                     _servicioNotificacion.Custom($"¡Encargo del Bien {encargo.Bien.Nombre} al trabajador {encargo.Trabajador.Nombre} creado correctamente!",5, "green", "fa fa-check");
                     return RedirectToAction(nameof(Index));
             }
-            ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "CodigoNombre", encargo.BienId);
-            ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre", encargo.TrabajadorId);
-            ViewData["EstadoActual"] = new SelectList(Estados,"","",encargo.EstadoActual);
+            
             _servicioNotificacion.Custom($"Es necesario corregir los problemas para poder editar el encargo del Bien {encargo.Bien.Nombre} al trabajador {encargo.Trabajador.Nombre}", 5, "red", "fa fa-exclamation-circle");
             return View(encargo);
         }

@@ -5,83 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ProyectoVersion1</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/fortawesome/fontawesome-free/css/all.min.css"/>
+    <link rel="stylesheet" href="~/fortawesome/fontawesome-free/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ProyectoVersion1.styles.css" asp-append-version="true" />
 </head>
 <body>
-    @if(User.IsInRole("Trabajador") || User.IsInRole("Administrador"))
+    @if (User.IsInRole("Trabajador") || User.IsInRole("Administrador"))
     {
-    <header>
-        <div class="container-fluid">
-            <!-- Botón para abrir el offcanvas -->
-            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                <i class="fas fa-bars"></i>
-            </button>
+        <header>
+            <div class="container-fluid">
+                <!-- Botón para abrir el offcanvas -->
+                <button class="btn btn-success" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                    <i class="fas fa-bars"></i>
+                </button>
 
-            <!-- Offcanvas para el Navbar reducido -->
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="width: 50px;">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
-                        <i class="fas fa-th-list"></i>
-                    </h5>
-                </div>
-                <div class="offcanvas-body p-0">
-                    <ul class="navbar-nav flex-grow-1 text-center">
-                        @if (User.IsInRole("Administrador"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="IndexAdministrador">
-                                    <i class="fas fa-home"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Espacios" asp-action="Index">
-                                    <i class="fas fa-building"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Categorias" asp-action="Index">
-                                    <i class="fas fa-tags"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Trabajadores" asp-action="Index">
-                                    <i class="fas fa-users"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Bienes" asp-action="Index">
-                                    <i class="fas fa-box"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Encargos" asp-action="Index">
-                                    <i class="fas fa-truck"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-danger" asp-area="" asp-controller="Cuentas" asp-action="Logout">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                </a>
-                            </li>
-                        }
-                        else if (User.IsInRole("Trabajador"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-danger" asp-area="" asp-controller="Cuentas" asp-action="Logout">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-                <div class="">
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <!-- Offcanvas para el Navbar reducido -->
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="width: 100px;">
+                    <!-- Botón para cerrar la barra lateral -->
+                    <div class="offcanvas-header justify-content-start">
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+
+                    <div class="offcanvas-body p-0">
+                        <ul class="navbar-nav flex-grow-1 text-center">
+                            @if (User.IsInRole("Administrador"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="IndexAdministrador">
+                                        <i class="fas fa-home"></i>
+                                        <span class="icon-text">Inicio</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Espacios" asp-action="Index">
+                                        <i class="fas fa-building"></i>
+                                        <span class="icon-text">Espacios</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Categorias" asp-action="Index">
+                                        <i class="fas fa-tags"></i>
+                                        <span class="icon-text">Categorías</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Trabajadores" asp-action="Index">
+                                        <i class="fas fa-users"></i>
+                                        <span class="icon-text">Trabajadores</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Bienes" asp-action="Index">
+                                        <i class="fas fa-box"></i>
+                                        <span class="icon-text">Bienes</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Encargos" asp-action="Index">
+                                        <i class="fas fa-truck"></i>
+                                        <span class="icon-text">Encargos</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-danger" asp-area="" asp-controller="Cuentas" asp-action="Logout">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        <span class="icon-text">Salir</span>
+                                    </a>
+                                </li>
+                            }
+                            else if (User.IsInRole("Trabajador"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-danger" asp-area="" asp-controller="Cuentas" asp-action="Logout">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        <span class="icon-text">Salir</span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
     }
 
     <div class="container">

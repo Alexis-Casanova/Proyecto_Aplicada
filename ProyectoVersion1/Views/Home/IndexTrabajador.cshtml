@@ -4,26 +4,31 @@
 @using X.PagedList.Web.Common
 
 @* Hola *@
-<h1 class="text-center mt-5">Hola, @ViewBag.Trabajador.Nombre . Consulta tus bienes a Cargo</h1>
+<h1 class="text-center mb-5 display-4">Hola, @ViewBag.Trabajador.Nombre<br />Consulta tus bienes a Cargo</h1>
 
-<div class="col-6">
-    <form asp-controller="Home" asp-action="IndexTrabajador" method="get">
+<div class="col-md-6 mx-auto text-center">
+    <form asp-controller="Home" asp-action="IndexTrabajador" method="get" class="d-flex justify-content-center">
         <div class="input-group">
-            <select name="estadoBien" value="@ViewBag.EstadoBien" asp-items="ViewBag.Estados" class="form-select">
+            <select name="estadoBien" value="@ViewBag.EstadoBien" asp-items="ViewBag.Estados" class="form-select me-2">
                 <option value="">---Buscar Estado---</option>
             </select>
-            <button type="submit" class="btn btn-outline-primary">Ver</button>
-            <a class="btn btn-outline-secondary" asp-action="IndexTrabajador" asp-controller="Home">Listar</a>
+            <button type="submit" class="btn btn-primary me-2">
+                <i class="fas fa-search"></i> Ver
+            </button>
+            <a asp-action="IndexTrabajador" asp-controller="Home" class="btn btn-secondary">
+                <i class="fas fa-undo"></i> Limpiar
+            </a>
         </div>
     </form>
 </div>
 
-<p class="text-end">
+
+<p class="text-lg-end">
     @Model.Count() registros
 </p>
 
-<table class="table table-bordered table-hover table-striped mt-5">
-    <thead class="bg-primary text-white">
+<table class="table table-hover mt-3">
+    <thead class="bg-info text-dark text-center">
         <tr class="text-center">
             <th>
                 Trabajador
@@ -42,8 +47,8 @@
             </th>
         </tr>
     </thead>
-    <tbody>
-        @if(Model.Count() != 0)
+    <tbody class="text-center">
+        @if (Model.Count() != 0)
         {
             foreach (var item in Model)
             {
@@ -67,19 +72,22 @@
             }
         }
         else
-            {
-                <td class="text-danger text-center" colspan=" ">No Hay bienes a cargo en estado @ViewBag.EstadoBien</td>
-            }
+        {
+        <td class="text-danger text-center" colspan="5">No hay bienes a cargo en estado @ViewBag.EstadoBien</td>
+        }
     </tbody>
 </table>
-@Html.PagedListPager(Model, page => Url.Action("IndexTrabajador", new
-    {
-        Pagina = page,
-        estadoBien = ViewBag.EstadoBien
-    }),
+
+<div class="d-flex justify-content-center mt-4">
+    @Html.PagedListPager(Model, page => Url.Action("IndexTrabajador", new
+        {
+            Pagina = page,
+            estadoBien = ViewBag.EstadoBien
+        }),
 
             new PagedListRenderOptions
-        {
-            LiElementClasses = new String[] { "page-item" },
-            PageClasses = new String[] { "link-item" },
-        })
+    {
+        LiElementClasses = new String[] { "page-item" },
+        PageClasses = new String[] { "link-item" },
+    })
+</div>

@@ -24,7 +24,7 @@ namespace ProyectoVersion1.Validacion
 
                     if (entity != null)
                     {
-                        return new ValidationResult("Ya existe un Espacio con este nombre. Por favor, elija otro valor.");
+                        return new ValidationResult("Ya existe una Categoría con este nombre. Por favor, elija otro valor.");
                     }
                 }
 

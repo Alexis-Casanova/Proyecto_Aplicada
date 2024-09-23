@@ -1,4 +1,8 @@
-﻿@model IEnumerable<ProyectoVersion1.Models.Categoria>
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@model IPagedList<ProyectoVersion1.Models.Categoria>
+
 
 @{
     ViewData["Title"] = "Categorías";
@@ -19,8 +23,8 @@
 <table class="table table-hover">
     <thead class="table-light text-center">
         <tr class="text-center">
-            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
-            <th>@Html.DisplayNameFor(model => model.Descripción)</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -48,3 +52,13 @@
     </tbody>
 </table>
 
+<div class="d-flex justify-content-center mt-4">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new
+        {
+            Pagina = page,
+        }), new PagedListRenderOptions
+{
+    LiElementClasses = new[] { "page-item" },
+    PageClasses = new[] { "page-link" }
+})
+</div>

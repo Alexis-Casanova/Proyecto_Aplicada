@@ -4,12 +4,12 @@
     ViewData["Title"] = "Editar Espacio";
 }
 
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Editar Espacio</h1>
+<div class="container mt-4">
+    <h1 class="text-center mb-4 fw-bold">Editar Espacio</h1>
 
     <div class="card border-0 shadow-sm">
-        <div class="card-header bg-warning text-dark text-center">
-            <h4 class="mb-0">Detalles del Espacio</h4>
+        <div class="card-header bg-warning text-dark">
+            <h4 class="mb-0 mt-2 fw-bold">Detalles del Espacio</h4>
         </div>
         <div class="card-body">
 
@@ -17,18 +17,18 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
+                    <label asp-for="Nombre" class="control-label fw-bold"></label>
+                <input asp-for="Nombre" class="form-control mt-1" />
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Tipo" class="control-label"></label>
-                <select asp-for="Tipo" class="form-control" asp-items="ViewBag.Tipo"></select>
+                    <label asp-for="Tipo" class="control-label mt-3 fw-bold"></label>
+                <select asp-for="Tipo" class="form-control mt-1" asp-items="ViewBag.Tipo"></select>
                 <span asp-validation-for="Tipo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Ubicacion" class="control-label"></label>
-                <input asp-for="Ubicacion" class="form-control" />
+                    <label asp-for="Ubicacion" class="control-label mt-3 fw-bold"></label>
+                <input asp-for="Ubicacion" class="form-control mt-1" />
                 <span asp-validation-for="Ubicacion" class="text-danger"></span>
             </div>
                 <div class="text-center mt-4">

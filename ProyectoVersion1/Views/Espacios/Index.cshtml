@@ -7,7 +7,7 @@
     ViewData["Title"] = "Espacios";
 }
 
-<h1 class="text-center mb-3 display-4">Espacios</h1>
+<h1 class="text-center mb-3 display-4 fw-bold">Espacios</h1>
 
 <div class="row mb-3">
     <div class="col-md-6">
@@ -22,7 +22,7 @@
 </div>
 
 <table class="table table-hover">
-    <thead class="bg-secondary text-white text-center">
+    <thead class="bg-secondary text-white text-center fw-bold">
         <tr>
             <th>
                 Nombre
@@ -36,7 +36,6 @@
             <th>
                 Acciones
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody class="text-center">
@@ -68,7 +67,7 @@
 }
     </tbody>
 </table>
-<div class="d-flex justify-content-center mt-4">
+<div class="d-flex justify-content-center mt-4 border-secondary">
     @Html.PagedListPager(Model, page => Url.Action("Index", new
         {
             Pagina = page,

@@ -4,26 +4,26 @@
     ViewData["Title"] = "Detalle categoría";
 }
 
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Detalles de la Categoría</h1>
+<div class="container mt-4">
+    <h1 class="text-center mb-4 fw-bold">Detalles de la Categoría</h1>
 
     <div class="card shadow">
-        <div class="card-header bg-secondary text-white">
-            <h4 class="mb-0">Información de la Categoría</h4>
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0 fw-bold mt-2">Información de la Categoría</h4>
         </div>
         <div class="card-body">
             <dl class="row">
                 <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Nombre)</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.Nombre)</dd>
 
-                <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Descripción)</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.Descripción)</dd>
+                <dt class="col-sm-3 mt-2">@Html.DisplayNameFor(model => model.Descripción)</dt>
+                <dd class="col-sm-9 mt-2">@Html.DisplayFor(model => model.Descripción)</dd>
             </dl>
+            <div class="text-center mt-4">
+                <a class="btn btn-info" asp-action="Edit" asp-route-id="@Model?.Id"><i class="fa-regular fa-pen-to-square"></i></a>
+            </div>
         </div>
         <div class="card-footer text-end">
-            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.Id">
-                <i class="fa-regular fa-pen-to-square"></i> Editar
-            </a>
             <a class="btn btn-secondary" asp-action="Index">
                 <i class="fa-solid fa-circle-left"></i> Regresar a la lista
             </a>

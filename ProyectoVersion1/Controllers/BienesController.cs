@@ -62,7 +62,6 @@ namespace ProyectoVersion1.Controllers
 
                 return View(await consulta.ToPagedListAsync(numeroPagina, registrosPorPagina));
             }
-            
             return View();
         }
 

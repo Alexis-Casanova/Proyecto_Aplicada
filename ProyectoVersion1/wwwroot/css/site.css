@@ -104,3 +104,21 @@ body {
 .offcanvas.offcanvas-start {
     width: 100px !important; /* Ajusta el ancho de la barra lateral */
 }
+
+/* Estilos para las páginas de Login */
+.login-background {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/img/team.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    z-index: 2;
+}

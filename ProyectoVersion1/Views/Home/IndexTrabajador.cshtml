@@ -3,6 +3,10 @@
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
 
+@{
+    ViewData["Title"] = "Trabajador";
+}
+
 <a href="@Url.Action("DownloadViewPDF", "Home", new { estadoBien = Model.EstadoBien })" class="btn btn-danger text-end">
     <i class="fas fa-file-pdf"></i>
 </a>

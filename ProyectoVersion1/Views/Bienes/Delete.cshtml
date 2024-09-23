@@ -4,8 +4,8 @@
     ViewData["Title"] = "Eliminar bien";
 }
 
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Eliminar Bien</h1>
+<div class="container mt-4">
+    <h1 class="text-center mb-4 fw-bold">Eliminar Bien</h1>
 
     <div class="alert alert-warning text-center" role="alert">
         <h3>¿Estás seguro de que quieres eliminar este bien?</h3>
@@ -13,7 +13,7 @@
 
     <div class="card shadow-lg">
         <div class="card-header bg-danger text-white">
-            <h4 class="mb-0">Detalles del Bien</h4>
+            <h4 class="mb-0 mt-2 fw-bold">Detalles del Bien</h4>
         </div>
         <div class="card-body">
             <dl class="row">
@@ -24,46 +24,46 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Codigo)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 mt-2">
             @Html.DisplayNameFor(model => model.Nombre)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 mt-2">
             @Html.DisplayFor(model => model.Nombre)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 mt-2">
             @Html.DisplayNameFor(model => model.Descripcion)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 mt-2">
             @Html.DisplayFor(model => model.Descripcion)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 mt-2">
             @Html.DisplayNameFor(model => model.Precio)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 mt-2">
             @Html.DisplayFor(model => model.Precio)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 mt-2">
             @Html.DisplayNameFor(model => model.EstadoInicial)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 mt-2">
             @Html.DisplayFor(model => model.EstadoInicial)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 mt-2">
             @Html.DisplayNameFor(model => model.FechaIngreso)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 mt-2">
             @Html.DisplayFor(model => model.FechaIngreso)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 mt-2">
             @Html.DisplayNameFor(model => model.Espacio)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 mt-2">
             @Html.DisplayFor(model => model.Espacio.Nombre)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 mt-2">
             @Html.DisplayNameFor(model => model.Categoria)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 mt-2">
             @Html.DisplayFor(model => model.Categoria.Nombre)
         </dd>
             </dl>

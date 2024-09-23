@@ -9,31 +9,9 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ProyectoVersion1.styles.css" asp-append-version="true" />
     <link rel="icon" type="image/png" href="~/img/logoEPIS.png" />
-
 </head>
-@if (ViewContext.RouteData.Values["action"].ToString() == "LoginAdministrador" || ViewContext.RouteData.Values["action"].ToString() == "LoginTrabajador")
-{
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/img/team.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            justify-content: center;
-           
-        }
 
-        .container {
-            z-index: 2;
-        }
-    </style>
-}
-<body >
+<body class="@(ViewContext.RouteData.Values["action"].ToString() == "LoginAdministrador" || ViewContext.RouteData.Values["action"].ToString() == "LoginTrabajador" ? "login-background" : "")">
     @if (User.IsInRole("Trabajador") || User.IsInRole("Administrador"))
     {
         <header>
@@ -120,7 +98,7 @@
     </div>
 
     <footer style="border-top: 1px solid white;" class="footer text-muted ">
-        <div class="container text-white" >
+        <div class="container text-muted" >
             &copy; 2024 - EPIS INVENTARIOS <i class="fa-solid fa-microchip"></i>
         </div>
     </footer>

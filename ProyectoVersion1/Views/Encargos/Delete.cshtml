@@ -4,8 +4,8 @@
     ViewData["Title"] = "Eliminar encargo";
 }
 
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Eliminar Encargo</h1>
+<div class="container mt-3">
+    <h1 class="text-center mb-4 fw-bold">Eliminar Encargo</h1>
 
     <div class="alert alert-warning text-center" role="alert">
         <h3>¿Estás seguro de que quieres eliminar este encargo?</h3>
@@ -13,7 +13,7 @@
 
     <div class="card shadow-lg">
         <div class="card-header bg-danger text-white">
-            <h4 class="mb-0">Detalles del Encargo</h4>
+            <h4 class="mb-0 mt-2 fw-bold">Detalles del Encargo</h4>
         </div>
         <div class="card-body">
             <dl class="row">
@@ -24,28 +24,28 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Trabajador.Nombre)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 mt-2">
             Código del Bien
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 mt-2">
             @Html.DisplayFor(model => model.Bien.CodigoNombre)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 mt-2">
             @Html.DisplayNameFor(model => model.EstadoActual)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 mt-2">
             @Html.DisplayFor(model => model.EstadoActual)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 mt-2">
             @Html.DisplayNameFor(model => model.FechaInicio)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 mt-2">
             @Html.DisplayFor(model => model.FechaInicio)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 mt-2">
             @Html.DisplayNameFor(model => model.FechaFin)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10 mt-2">
             @Html.DisplayFor(model => model.FechaFin)
         </dd>
             </dl>

@@ -4,47 +4,47 @@
     ViewData["Title"] = "Crear encargo";
 }
 
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Crear Nuevo Encargo</h1>
+<div class="container mt-3">
+    <h1 class="text-center mb-4 fw-bold">Crear Nuevo Encargo</h1>
 
     <div class="card shadow-lg">
         <div class="card-header bg-success text-white">
-            <h4 class="mb-0">Datos del Encargo</h4>
+            <h4 class="mb-0 fw-bold mt-2">Datos del Encargo</h4>
         </div>
         <div class="card-body">
 
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="TrabajadorId" class="control-label"></label>
-                <select asp-for="TrabajadorId" class ="form-control" asp-items="ViewBag.TrabajadorId">
+                <label asp-for="TrabajadorId" class="control-label fw-bold"></label>
+                <select asp-for="TrabajadorId" class ="form-control mt-1" asp-items="ViewBag.TrabajadorId">
                     <option value="">---Seleccionar Trabajador---</option>
                 </select>
                 <span asp-validation-for="TrabajadorId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Código del Bien</label>
-                <select asp-for="BienId" class ="form-control" asp-items="ViewBag.BienId">
+                <label class="control-label fw-bold mt-3">Código del Bien</label>
+                <select asp-for="BienId" class ="form-control mt-1" asp-items="ViewBag.BienId">
                     <option value="">---Seleccionar Bien---</option>
                 </select>
                 <span asp-validation-for="BienId" class="text-danger"></span>
             </div>
             
             <div class="form-group">
-                <label asp-for="EstadoActual" class="control-label"></label>
-                <select asp-for="EstadoActual" class="form-control" asp-items="ViewBag.EstadoActual">
+                <label asp-for="EstadoActual" class="control-label mt-3 fw-bold"></label>
+                <select asp-for="EstadoActual" class="form-control mt-1" asp-items="ViewBag.EstadoActual">
                     <option value="">---Seleccionar Estado Actual---</option>
                 </select>
                 <span asp-validation-for="EstadoActual" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FechaInicio" class="control-label"></label>
-                <input asp-for="FechaInicio" class="form-control" />
+                <label asp-for="FechaInicio" class="control-label fw-bold mt-3"></label>
+                <input asp-for="FechaInicio" class="form-control mt-1" />
                 <span asp-validation-for="FechaInicio" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FechaFin" class="control-label"></label>
-                <input asp-for="FechaFin" class="form-control" />
+                <label asp-for="FechaFin" class="control-label fw-bold mt-3"></label>
+                <input asp-for="FechaFin" class="form-control mt-1" />
                 <span asp-validation-for="FechaFin" class="text-danger"></span>
             </div>
                 <div class="text-center mt-4">

@@ -33,13 +33,13 @@ namespace ProyectoVersion1.Controllers
 
         public async Task<IActionResult> Index(string buscaTrabajador)
         {
-            ViewData["Trabajadores"] = new SelectList(_context.Trabajadores, "Id", "Nombre", buscaTrabajador);
+            ViewData["Trabajadores"] = new SelectList(_context.Trabajadores.Where(t => t.Cargo != "Administrador"), "Id", "Nombre", buscaTrabajador);
             ViewData["BuscaTrabajador"] = buscaTrabajador;
 
             if (_context.Encargos != null)
             {
                 var registrosPorPagina = _configuration.GetValue("RegistrosPorPagina", 10);
-                var consulta = _context.Encargos.Include(b => b.Trabajador).Include(b => b.Bien).Select(u => u);
+                var consulta = _context.Encargos.Include(b => b.Trabajador).Include(b => b.Bien).Where(e => e.Trabajador.Cargo != "Administrador").Select(u => u);
 
                 if (buscaTrabajador != null)
                 {
@@ -65,6 +65,7 @@ namespace ProyectoVersion1.Controllers
             var encargo = await _context.Encargos
                 .Include(e => e.Bien)
                 .Include(e => e.Trabajador)
+                .Where(e => e.Trabajador.Cargo != "Administrador")
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (encargo == null)
             {
@@ -80,7 +81,7 @@ namespace ProyectoVersion1.Controllers
         public IActionResult Create()
         {
             ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "CodigoNombre");
-            ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre");
+            ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores.Where(t => t.Cargo != "Administrador"), "Id", "Nombre");
             ViewData["EstadoActual"] = new SelectList(Estados,"","");
             return View();
         }
@@ -131,7 +132,7 @@ namespace ProyectoVersion1.Controllers
                 return NotFound();
             }
             ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Nombre", encargo.BienId);
-            ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre", encargo.TrabajadorId);
+            ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores.Where(t => t.Cargo != "Administrador"), "Id", "Nombre", encargo.TrabajadorId);
             ViewData["EstadoActual"] = new SelectList(Estados, "", "", encargo.EstadoActual);
             return View(encargo);
         }
@@ -181,7 +182,7 @@ namespace ProyectoVersion1.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Nombre", encargo.BienId);
-            ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre", encargo.TrabajadorId);
+            ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores.Where(t => t.Cargo != "Administrador"), "Id", "Nombre", encargo.TrabajadorId);
             ViewData["EstadoActual"] = new SelectList(Estados, "", "", encargo.EstadoActual);
             _servicioNotificacion.Custom($"Es necesario corregir los problemas para poder editar el encargo del Bien {encargo.Bien.Nombre} al trabajador {encargo.Trabajador.Nombre}", 5, "red", "fa fa-exclamation-circle");
             return View(encargo);

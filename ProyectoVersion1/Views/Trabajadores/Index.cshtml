@@ -3,27 +3,35 @@
 @using X.PagedList.Mvc.Core
 @model IPagedList<Trabajador>
 
-    <h1>Trabajadores</h1>
+<h1 class="text-center mb-5 display-4">Trabajador</h1>
 
-<div class="col-6">
-    <form asp-controller="Trabajadores" asp-action="Index" method="get">
-        <div class="input-group">
-            <select name="buscaTipo" value="@ViewBag.BuscaTipo" class="form-control" placeholder="Consulta por Cargo" asp-items="@ViewBag.Tipos">
-                <option value="">---Buscar Tipo---</option>
+<div class="row mb-5">
+    <div class="col-md-6">
+        <a asp-action="Create" class="btn btn-success">
+            <i class="fas fa-plus-circle"></i> Añadir Trabajador
+        </a>
+    </div>
+    <div class="col-md-6">
+        <form asp-controller="Trabajadores" asp-action="Index" method="get" class="d-flex justify-content-end">
+            <select name="buscaTipo" class="form-control me-2" placeholder="Consulta por Cargo" asp-items="@ViewBag.Tipos">
+                <option value="">---Buscar Tipo de Trabajador---</option>
             </select>
-            <button type="submit" class="btn btn-outline-primary">Ver</button>
-            <a asp-controller="Trabajadores" asp-action="Index" class="btn btn-secondary">Listar</a>
-        </div>
-    </form>
+            <button type="submit" class="btn btn-primary me-2">
+                <i class="fas fa-search"></i> Ver
+            </button>
+            <a asp-action="Index" asp-controller="Trabajadores" class="btn btn-secondary">
+                <i class="fas fa-undo"></i> Limpiar
+            </a>
+        </form>
+    </div>
 </div>
 
-@Model.Count() Registros
+<div class="text-lg-end mb-3">
+    @Model.Count() Registros
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<table class="table table-hover mt-3">
+    <thead class="table-light text-center">
         <tr>
             <th>
                 Nombre
@@ -38,7 +46,7 @@
             <th>
                Tipo
             </th>
-            <th></th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -59,9 +67,17 @@
                         @Html.DisplayFor(modelItem => item.Tipo)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <div class="btn-group" role="group">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm me-1">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm me-1">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
                     </td>
                 </tr>
             
@@ -70,9 +86,11 @@
 </table>
 
 
-@Html.PagedListPager(Model, page=>Url.Action("Index", new{Pagina = page}), 
-new PagedListRenderOptions{
-LiElementClasses=new String[]{"page-item"},
-PageClasses = new String[]{"link-item"},
-}
-)
+<div class="d-flex justify-content-center mt-4">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { Pagina = page }),
+            new PagedListRenderOptions
+    {
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" }
+    })
+</div>

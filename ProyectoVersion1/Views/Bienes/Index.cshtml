@@ -6,112 +6,85 @@
 @{
     ViewData["Title"] = "Index";
 }
+<h1 class="text-center mb-5 display-4">Bienes</h1>
 
-<h1>Index</h1>
-
-
-<div class="row">
-    <div class="col">
-        <p>
-            <a asp-action="Create">Añadir Bien</a>
-        </p>
+<div class="row mb-5">
+    <div class="col-md-6">
+        <a asp-action="Create" class="btn btn-success">
+            <i class="fas fa-plus-circle"></i> Añadir Bien
+        </a>
     </div>
-    <div class="col">
-        <form asp-action="Index" asp-controller="Bienes" method="get">
-            <div class="input-group">
-                @* ESPACIO BUSQUEDA *@
-                <select class="form-control" name="buscaEspacio" value="@ViewBag.BuscaEspacio" asp-items="ViewBag.Espacios">
-                    <option value="">---Busca Espacio---</option>
-                </select>
-            </div>
-            <div class="input-group">
-                @* CATEGORIA BUSQUEDA *@
-                <select class="form-control mt-4" name="buscaCategoria" value="@ViewBag.BuscaCategoria" asp-items="ViewBag.Categoria">
-                    <option value="">---Busca Categoria---</option>
-                </select>
-                <button type="submit" class="btn btn-outline-primary mt-4">Ver</button>
-                <a asp-action="Index" asp-controller="Bienes" class="btn btn-outline-secondary mt-4">Limpiar</a>
-            </div>
+    <div class="col-md-6">
+        <form asp-action="Index" asp-controller="Bienes" method="get" class="d-flex justify-content-end">
+            <select class="form-select me-2" name="buscaEspacio" value="@ViewBag.BuscaEspacio" asp-items="ViewBag.Espacios">
+                <option value="">--- Busca Espacio ---</option>
+            </select>
+            <select class="form-select me-2" name="buscaCategoria" value="@ViewBag.BuscaCategoria" asp-items="ViewBag.Categoria">
+                <option value="">--- Busca Categoria ---</option>
+            </select>
+            <button type="submit" class="btn btn-primary me-2">
+                <i class="fas fa-search"></i> Ver
+            </button>
+            <a asp-action="Index" asp-controller="Bienes" class="btn btn-secondary">
+                <i class="fas fa-undo"></i> Limpiar
+            </a>
         </form>
     </div>
 </div>
 
+<div class="text-lg-end">
+    @Model.Count() Registros
+</div>
 
-
-
-<table class="table">
-    <thead>
+<table class="table table-hover mt-3">
+    <thead class="table-light text-center">
         <tr>
-            <th>
-                Codigo
-            </th>
-            <th>
-                Nombre
-            </th>
-            <th>
-                Descripcion
-            </th>
-            <th>
-                Precio
-            </th>
-            <th>
-                Estado
-            </th>
-            <th>
-                FechaIngreso
-            </th>
-            <th>
-                Espacio
-            </th>
-            <th>
-                Categoria
-            </th>
-            <th>Acciones</th>
+            <th scope="col">Código</th>
+            <th scope="col">Nombre</th>
+            @*  <th scope="col">Descripción</th> *@
+            <th scope="col">Precio</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Fecha Ingreso</th>
+            <th scope="col">Espacio</th>
+            <th scope="col">Categoría</th>
+            <th scope="col">Acciones</th>
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Precio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstadoInicial)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaIngreso)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Espacio.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categoria.Nombre)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+    <tbody class="text-center">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Codigo)</td>
+                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                @*  <td>@Html.DisplayFor(modelItem => item.Descripcion)</td> *@
+                <td>@Html.DisplayFor(modelItem => item.Precio)</td>
+                <td>@Html.DisplayFor(modelItem => item.EstadoInicial)</td>
+                <td>@Html.DisplayFor(modelItem => item.FechaIngreso)</td>
+                <td>@Html.DisplayFor(modelItem => item.Espacio.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Categoria.Nombre)</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm me-1">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm me-1">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new {
-    Pagina = page,
-    }),
-
-new PagedListRenderOptions
-{
-    LiElementClasses = new String[] { "page-item" },
-    PageClasses = new String[] { "link-item" },
-})
+<div class="d-flex justify-content-center mt-4">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { Pagina = page }),
+            new PagedListRenderOptions
+    {
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" }
+    })
+</div>

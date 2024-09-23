@@ -8,31 +8,33 @@
 @{
     ViewData["Title"] = "Index";
 }
+<h1 class="text-center mb-5 display-4">Encargos</h1>
 
-<h1>Index</h1>
-
-<div class="row">
+<div class="row mb-4">
     <div class="col">
-        <p>
-            <a asp-action="Create">Añadir Encargo</a>
-        </p>
+        <a asp-action="Create" class="btn btn-success mb-3"><i class="fas fa-plus-circle"></i> Añadir Encargo</a>
     </div>
-    <div class="col">
-        <form asp-action="Index" asp-controller="Encargos" method="get">
-            <div class="input-group">
-                <select class="form-control mt-4" name="buscaTrabajador" value="@ViewBag.BuscaTrabajador" asp-items="ViewBag.Trabajadores">
-                    <option value="">---Busca Trabajador---</option>
-                </select>
-                <button type="submit" class="btn btn-outline-primary mt-4">Ver</button>
-                <a asp-action="Index" asp-controller="Encargos" class="btn btn-outline-secondary mt-4">Limpiar</a>
-            </div>
+    <div class="col-md-6">
+        <form asp-action="Index" asp-controller="Encargos" method="get" class="d-flex justify-content-end">
+            <select class="form-select me-2" name="buscaTrabajador" asp-items="ViewBag.Trabajadores">
+                <option value="">---Busca Trabajador---</option>
+            </select>
+            <button type="submit" class="btn btn-primary me-2">
+                <i class="fas fa-search"></i> Ver
+            </button>
+            <a asp-action="Index" asp-controller="Bienes" class="btn btn-secondary">
+                <i class="fas fa-undo"></i> Limpiar
+            </a>
         </form>
     </div>
 </div>
 
+<div class="text-lg-end mb-3">
+    @Model.Count() Registros
+</div>
 
-<table class="table table-bordered table-hover table-striped mt-5">
-    <thead class="bg-primary text-white">
+<table class="table table-hover">
+    <thead class="table-light text-center">
         <tr class="text-center">
             <th>Trabajador</th>
             <th>Bien</th>
@@ -41,7 +43,7 @@
             <th>Acciones</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="text-center">
         @if (Model.Any())
         {
             foreach (var item in Model)
@@ -52,9 +54,18 @@
                     <td>@Html.DisplayFor(modelItem => item.FechaInicio)</td>
                     <td>@Html.DisplayFor(modelItem => item.FechaFin)</td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                        <div class="btn-group" role="group">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning me-1">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-secondary me-1">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </div>
+
                     </td>
                 </tr>
             }
@@ -67,14 +78,14 @@
         }
     </tbody>
 </table>
-@Html.PagedListPager(Model, page => Url.Action("Index", new
-    {
-        Pagina = page,
-        buscaTrabajador = ViewBag.BuscaTrabajador
-    }),
-
-        new PagedListRenderOptions
-    {
-        LiElementClasses = new String[] { "page-item" },
-        PageClasses = new String[] { "link-item" },
-    })
+<div class="d-flex justify-content-center mt-4">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new
+        {
+            Pagina = page,
+            buscaTrabajador = ViewBag.BuscaTrabajador
+        }), new PagedListRenderOptions
+{
+    LiElementClasses = new[] { "page-item" },
+    PageClasses = new[] { "page-link" }
+})
+</div>

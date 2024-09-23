@@ -4,12 +4,15 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Editar Categoría</h1>
 
-<h4>Categoria</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-warning text-dark text-center">
+            <h4 class="mb-0">Datos de la Categoría</h4>
+        </div>
+        <div class="card-body">
+
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
@@ -22,17 +25,22 @@
                 <label asp-for="Descripción" class="control-label"></label>
                 <input asp-for="Descripción" class="form-control" />
                 <span asp-validation-for="Descripción" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+                </div>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-warning">
+                        <i class="fa-regular fa-floppy-disk"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-end">
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fa-solid fa-circle-left"></i> Regresar a la lista
+            </a>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

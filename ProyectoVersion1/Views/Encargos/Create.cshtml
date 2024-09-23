@@ -4,12 +4,15 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Crear Nuevo Encargo</h1>
 
-<h4>Encargo</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">Datos del Encargo</h4>
+        </div>
+        <div class="card-body">
+
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -44,16 +47,21 @@
                 <input asp-for="FechaFin" class="form-control" />
                 <span asp-validation-for="FechaFin" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-end mt-3">
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fa-solid fa-circle-left"></i> Regresar a la lista
+            </a>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

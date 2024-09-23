@@ -79,7 +79,7 @@ namespace ProyectoVersion1.Data
                 new Trabajador{Nombre="Diego Cruzado", Email="diegocruzado@gmail.com", Contraseña="diego123", Telefono="917081762", Cargo="Trabajador", Tipo="Docente"},
                 new Trabajador{Nombre="Angie Malca", Email="angiemalca@gmail.com", Contraseña="angie123", Telefono="924568751", Cargo="Trabajador", Tipo="Secretaria"},
                 new Trabajador{Nombre="Alexis Casanova", Email="alexiscasanova@gmail.com", Contraseña="alexis123", Telefono="924125465", Cargo="Trabajador", Tipo="Administrativo"},
-                new Trabajador{Nombre="Fernando Becerra", Email="fernandobecerra@gmail.com", Contraseña="fernando123", Telefono="924168549", Cargo="Trabajador", Tipo="Tecnico"}
+                new Trabajador{Nombre="Fernando Becerra", Email="fernandobecerra@gmail.com", Contraseña="fernando123", Telefono="924168549", Cargo="Trabajador", Tipo="Técnico"}
             };
             contexto.Trabajadores.AddRange(trabajadores);
             contexto.SaveChanges();

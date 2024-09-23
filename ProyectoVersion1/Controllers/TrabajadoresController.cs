@@ -41,7 +41,7 @@ namespace ProyectoVersion1.Controllers
             ViewData["BuscaCargo"] = buscaTipo;
             if (_context.Trabajadores!=null)
             { 
-                var registrosPorPagina = _configuration.GetValue("RegistrosPorPagina", 10)+1;
+                var registrosPorPagina = _configuration.GetValue("RegistrosPorPagina", 10);
                 var consulta = _context.Trabajadores.Where(u => u.Cargo !="Administrador").Select(u=>u);
                     if (buscaTipo!=null)
                     {

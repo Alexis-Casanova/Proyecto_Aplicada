@@ -131,7 +131,7 @@ namespace ProyectoVersion1.Controllers
             {
                 return NotFound();
             }
-            ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Nombre", encargo.BienId);
+            ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "CodigoNombre", encargo.BienId);
             ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores.Where(t => t.Cargo != "Administrador"), "Id", "Nombre", encargo.TrabajadorId);
             ViewData["EstadoActual"] = new SelectList(Estados, "", "", encargo.EstadoActual);
             return View(encargo);
@@ -181,7 +181,7 @@ namespace ProyectoVersion1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "Nombre", encargo.BienId);
+            ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "CodigoNombre", encargo.BienId);
             ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores.Where(t => t.Cargo != "Administrador"), "Id", "Nombre", encargo.TrabajadorId);
             ViewData["EstadoActual"] = new SelectList(Estados, "", "", encargo.EstadoActual);
             _servicioNotificacion.Custom($"Es necesario corregir los problemas para poder editar el encargo del Bien {encargo.Bien.Nombre} al trabajador {encargo.Trabajador.Nombre}", 5, "red", "fa fa-exclamation-circle");

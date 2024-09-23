@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static ProyectoVersion1.Validacion.ValidacionCodigoEncargo;
 
 namespace ProyectoVersion1.Models
 {
@@ -13,6 +14,7 @@ namespace ProyectoVersion1.Models
 
         [Required(ErrorMessage = "Campo bien es obligatorio")]
         [Display(Name = "Bien")]
+        [RepetidoBien]
         public int BienId { get; set; }
         public virtual Bien? Bien { get; set; }
 

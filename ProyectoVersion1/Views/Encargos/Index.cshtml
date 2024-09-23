@@ -38,7 +38,7 @@
     <thead class="bg-success text-white text-center">
         <tr class="text-center">
             <th>Trabajador</th>
-            <th>Bien</th>
+            <th>Código del Bien</th>
             <th>Fecha de Inicio</th>
             <th>Fecha de Fin</th>
             <th>Acciones</th>
@@ -51,7 +51,7 @@
             {
                 <tr>
                     <td>@Html.DisplayFor(modelItem => item.Trabajador.Nombre)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Bien.Nombre)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Bien.CodigoNombre)</td>
                     <td>@Html.DisplayFor(modelItem => item.FechaInicio)</td>
                     <td>@Html.DisplayFor(modelItem => item.FechaFin)</td>
                     <td>

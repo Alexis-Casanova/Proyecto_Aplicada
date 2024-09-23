@@ -3,10 +3,6 @@
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
 
-<!-- Cargar Bootstrap y FontAwesome desde tu ruta local o desde un CDN para asegurar estilos en el PDF -->
-<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-<link href="~/lib/fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
-
 <a href="@Url.Action("DownloadViewPDF", "Home", new { estadoBien = Model.EstadoBien })" class="btn btn-danger text-end">
     <i class="fas fa-file-pdf"></i>
 </a>

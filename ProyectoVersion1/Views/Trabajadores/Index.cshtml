@@ -90,10 +90,10 @@
 
 
 <div class="d-flex justify-content-center mt-4">
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { Pagina = page }),
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { Pagina = page, buscaTipo = ViewBag.BuscaTipo }),
             new PagedListRenderOptions
     {
-        LiElementClasses = new[] { "page-item" },
-        PageClasses = new[] { "page-link" }
+        LiElementClasses = new String[] { "page-item" },
+        PageClasses = new String[] { "page-link" }
     })
 </div>

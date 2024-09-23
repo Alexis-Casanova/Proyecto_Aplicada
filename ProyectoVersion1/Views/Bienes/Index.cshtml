@@ -42,7 +42,7 @@
             <th scope="col">Código</th>
             <th scope="col">Nombre</th>
             @*  <th scope="col">Descripción</th> *@
-            <th scope="col">Precio</th>
+            @* <th scope="col">Precio</th> *@
             <th scope="col">Estado</th>
             <th scope="col">Fecha Ingreso</th>
             <th scope="col">Espacio</th>
@@ -59,7 +59,7 @@
                     <td>@Html.DisplayFor(modelItem => item.Codigo)</td>
                     <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                     @*  <td>@Html.DisplayFor(modelItem => item.Descripcion)</td> *@
-                    <td>@Html.DisplayFor(modelItem => item.Precio)</td>
+                    @* <td>@Html.DisplayFor(modelItem => item.Precio)</td> *@
                     <td>@Html.DisplayFor(modelItem => item.EstadoInicial)</td>
                     <td>@Html.DisplayFor(modelItem => item.FechaIngreso)</td>
                     <td>@Html.DisplayFor(modelItem => item.Espacio.Nombre)</td>
@@ -88,7 +88,7 @@
 </table>
 
 <div class="d-flex justify-content-center mt-4">
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { Pagina = page }),
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { Pagina = page, buscaEspacio = ViewBag.BuscaEspacio, buscaCategoria = ViewBag.BuscaCategoria }),
             new PagedListRenderOptions
     {
         LiElementClasses = new[] { "page-item" },

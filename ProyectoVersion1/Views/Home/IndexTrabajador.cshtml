@@ -36,7 +36,7 @@
 <table class="table table-hover mt-3">
     <thead class="bg-info text-dark text-center">
         <tr class="text-center">
-            <th>Trabajador</th>
+            @* <th>Trabajador</th> *@
             <th>Código del Bien</th>
             <th>Bien</th>
             <th>Estado del Bien</th>
@@ -49,7 +49,7 @@
             foreach (var item in Model.EncargosPaginados)
             {
                 <tr>
-                    <td>@Html.DisplayFor(modelItem => item.Trabajador.Nombre)</td>
+                    @* <td>@Html.DisplayFor(modelItem => item.Trabajador.Nombre)</td> *@
                     <td>@Html.DisplayFor(modelItem => item.Bien.Codigo)</td>
                     <td>@Html.DisplayFor(modelItem => item.Bien.Nombre)</td>
                     <td>@Html.DisplayFor(modelItem => item.EstadoActual)</td>

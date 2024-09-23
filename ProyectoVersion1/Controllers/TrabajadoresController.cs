@@ -38,7 +38,7 @@ namespace ProyectoVersion1.Controllers
         {
 
             ViewData["Tipos"] = new SelectList(Tipos, "", "", buscaTipo);
-            ViewData["BuscaCargo"] = buscaTipo;
+            ViewData["BuscaTipo"] = buscaTipo;
             if (_context.Trabajadores!=null)
             { 
                 var registrosPorPagina = _configuration.GetValue("RegistrosPorPagina", 10);

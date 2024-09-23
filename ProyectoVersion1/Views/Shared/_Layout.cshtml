@@ -3,11 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ProyectoVersion1</title>
+    <title>@ViewData["Title"] - INVENTARIOS EPIS</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/fortawesome/fontawesome-free/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ProyectoVersion1.styles.css" asp-append-version="true" />
+    <link rel="icon" type="image/png" href="~/img/logoEPIS.png" />
+
 </head>
 <body>
     @if (User.IsInRole("Trabajador") || User.IsInRole("Administrador"))

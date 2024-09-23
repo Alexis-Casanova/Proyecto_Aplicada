@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProyectoVersion1.Data;
 using ProyectoVersion1.Models;
+using X.PagedList;
 
 namespace ProyectoVersion1.Controllers
 {
@@ -18,17 +19,29 @@ namespace ProyectoVersion1.Controllers
     {
         private readonly ProyectoVersion1Context _context;
         private readonly INotyfService _servicioNotificacion;
+        private readonly IConfiguration _configuration;
 
-        public CategoriasController(ProyectoVersion1Context context, INotyfService oNotificacion)
+        public CategoriasController(ProyectoVersion1Context context, INotyfService oNotificacion, IConfiguration configuration)
         {
             _context = context;
             _servicioNotificacion = oNotificacion;
+            _configuration = configuration;
         }
 
-        // GET: Categorias
+        [BindProperty(SupportsGet = true)]
+        public int? Pagina { get; set; }
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categorias.ToListAsync());
+            if (_context.Categorias != null)
+            {
+                var registrosPorPagina = _configuration.GetValue("RegistrosPorPagina", 10);
+                var consulta = _context.Categorias.Select(u => u);
+
+                var numeroPagina = Pagina ?? 1;
+
+                return View(await consulta.ToPagedListAsync(numeroPagina, registrosPorPagina));
+            }
+            return View();
         }
 
         // GET: Categorias/Details/5

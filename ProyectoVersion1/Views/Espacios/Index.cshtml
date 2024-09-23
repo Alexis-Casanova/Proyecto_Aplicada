@@ -1,7 +1,10 @@
-﻿@model IEnumerable<ProyectoVersion1.Models.Espacio>
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@model IPagedList<ProyectoVersion1.Models.Espacio>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Espacios";
 }
 
 <h1 class="text-center mb-5 display-4">Espacios</h1>
@@ -22,13 +25,13 @@
     <thead class="table-light text-center">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nombre)
+                Nombre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Tipo)
+                Tipo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ubicacion)
+                Ubicacion
             </th>
             <th>
                 Acciones
@@ -65,3 +68,15 @@
 }
     </tbody>
 </table>
+<div class="d-flex justify-content-center mt-4">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new
+        {
+            Pagina = page,
+        }), new PagedListRenderOptions
+{
+    LiElementClasses = new[] { "page-item" },
+    PageClasses = new[] { "page-link" }
+})
+</div>
+
+

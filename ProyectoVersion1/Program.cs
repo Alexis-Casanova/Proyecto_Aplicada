@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ProyectoVersion1.Data;
+using Rotativa.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ProyectoVersion1Context>(options =>
@@ -16,6 +17,8 @@ builder.Services.AddNotyf(config =>
     config.Position = NotyfPosition.BottomRight;
 }
     );
+
+
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -54,6 +57,8 @@ using(var inicio = app.Services.CreateScope())
     contexto.Database.EnsureCreated();
     BDInicio.Registrar(contexto);
 }
+//Agregar Rotativa
+RotativaConfiguration.Setup(app.Environment.WebRootPath, "Rotativa");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

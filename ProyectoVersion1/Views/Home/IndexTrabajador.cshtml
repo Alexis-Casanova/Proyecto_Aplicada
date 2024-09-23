@@ -1,10 +1,17 @@
-﻿@model IPagedList<Encargo>
+﻿@model TrabajadorEncargoViewModel
 @using X.PagedList
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
 
-@* Hola *@
-<h1 class="text-center mb-5 display-4">Hola, @ViewBag.Trabajador.Nombre<br />Consulta tus bienes a Cargo</h1>
+<!-- Cargar Bootstrap y FontAwesome desde tu ruta local o desde un CDN para asegurar estilos en el PDF -->
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/lib/fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
+
+<a href="@Url.Action("DownloadViewPDF", "Home", new { estadoBien = Model.EstadoBien })" class="btn btn-danger text-end">
+    <i class="fas fa-file-pdf"></i>
+</a>
+
+<h1 class="text-center mb-5 display-4">Bienvenido <strong> @Model.Trabajador.Nombre</strong>.<br />Consulta tus bienes a Cargo</h1>
 
 <div class="col-md-6 mx-auto text-center">
     <form asp-controller="Home" asp-action="IndexTrabajador" method="get" class="d-flex justify-content-center">
@@ -22,72 +29,50 @@
     </form>
 </div>
 
-
 <p class="text-lg-end">
-    @Model.Count() registros
+    @Model.EncargosPaginados.Count() registros
 </p>
 
 <table class="table table-hover mt-3">
     <thead class="bg-info text-dark text-center">
         <tr class="text-center">
-            <th>
-                Trabajador
-            </th>
-            <th>
-                Codgio del Bien
-            </th>
-            <th>
-                Bien
-            </th>
-            <th>
-                Estado del Bien
-            </th>
-            <th>
-                Fecha de Inicio
-            </th>
+            <th>Trabajador</th>
+            <th>Código del Bien</th>
+            <th>Bien</th>
+            <th>Estado del Bien</th>
+            <th>Fecha de Encargo</th>
         </tr>
     </thead>
     <tbody class="text-center">
-        @if (Model.Count() != 0)
+        @if (Model.EncargosPaginados.Count() != 0)
         {
-            foreach (var item in Model)
+            foreach (var item in Model.EncargosPaginados)
             {
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Trabajador.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Bien.Codigo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Bien.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EstadoActual)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FechaInicio)
-                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.Trabajador.Nombre)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Bien.Codigo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Bien.Nombre)</td>
+                    <td>@Html.DisplayFor(modelItem => item.EstadoActual)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FechaInicio)</td>
                 </tr>
             }
         }
         else
         {
-        <td class="text-danger text-center" colspan="5">No hay bienes a cargo en estado @ViewBag.EstadoBien</td>
+        <td class="text-danger text-center" colspan="5">No hay bienes a cargo en estado @Model.EstadoBien</td>
         }
     </tbody>
 </table>
 
 <div class="d-flex justify-content-center mt-4">
-    @Html.PagedListPager(Model, page => Url.Action("IndexTrabajador", new
+    @Html.PagedListPager(Model.EncargosPaginados, page => Url.Action("IndexTrabajador", new
         {
             Pagina = page,
-            estadoBien = ViewBag.EstadoBien
+            estadoBien = Model.EstadoBien
         }),
-
             new PagedListRenderOptions
     {
         LiElementClasses = new String[] { "page-item" },
-        PageClasses = new String[] { "link-item" },
+        PageClasses = new String[] { "link-item" }
     })
 </div>

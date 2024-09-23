@@ -114,7 +114,7 @@ namespace ProyectoVersion1.Controllers
             ViewData["BienId"] = new SelectList(_context.Bienes, "Id", "CodigoNombre", encargo.BienId);
             ViewData["TrabajadorId"] = new SelectList(_context.Trabajadores, "Id", "Nombre", encargo.TrabajadorId);
             ViewData["EstadoActual"] = new SelectList(Estados,"","",encargo.EstadoActual);
-            _servicioNotificacion.Custom($"Es necesario corregir los problemas para poder editar el encargo del Bien {encargo.BienId} al trabajador {encargo.TrabajadorId}", 5, "red", "fa fa-exclamation-circle");
+            _servicioNotificacion.Custom($"Es necesario corregir los problemas para poder editar el encargo del Bien {encargo.Bien.Nombre} al trabajador {encargo.Trabajador.Nombre}", 5, "red", "fa fa-exclamation-circle");
             return View(encargo);
         }
 

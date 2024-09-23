@@ -87,15 +87,11 @@ namespace ProyectoVersion1.Data
             var encargos = new Encargo[]
             {
                 new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Diego Cruzado").Id, BienId=contexto.Bienes.First(u=>u.Nombre=="Computador DELL").Id, FechaInicio= new DateTime(2024,1,1), FechaFin= new DateTime(2025,1,2), EstadoActual="Activo"},
-                new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Diego Cruzado").Id, BienId=contexto.Bienes.First(u=>u.Nombre=="Escritorio").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(2025,1,2), EstadoActual="Dañado"},
                 new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Diego Cruzado").Id, BienId=contexto.Bienes.First(u=>u.Nombre=="Monitor DELL").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(2025,1,1), EstadoActual="Dañado"},
                 new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Angie Malca").Id, BienId=contexto.Bienes.First(u=>u.Nombre=="Impresora EPSON").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(), EstadoActual="Activo"},
                 new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Angie Malca").Id, BienId=contexto.Bienes.First(u=>u.Nombre=="Escritorio").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(), EstadoActual = "Activo"},
-                new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Alexis Casanova").Id, BienId=contexto.Bienes.First(u=>u.Nombre=="Escritorio").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(), EstadoActual="Dañado"},
                 new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Alexis Casanova").Id, BienId=contexto.Bienes.First(u=>u.Nombre=="Silla").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(), EstadoActual = "Activo"},
-                new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Fernando Becerra").Id, BienId=contexto.Bienes.First(u=>u.Nombre=="Kit Herramientas").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(2025,1,2), EstadoActual = "Activo"},
-                new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Fernando Becerra").Id, BienId=contexto.Bienes.First(u=>u.Nombre=="Escritorio").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(2025,1,2), EstadoActual="Mantenimiento"},
-                new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Fernando Becerra").Id, BienId=contexto.Bienes.First(u=>u.Nombre=="Silla").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(2025,1,2), EstadoActual = "Mantenimiento"},
+                new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Fernando Becerra").Id, BienId=contexto.Bienes.First(u=>u.Nombre=="Kit Herramientas").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(2025,1,2), EstadoActual = "Activo"}
             };
             contexto.Encargos.AddRange(encargos);
             contexto.SaveChanges();

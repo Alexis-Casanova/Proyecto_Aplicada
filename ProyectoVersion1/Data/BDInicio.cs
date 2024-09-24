@@ -50,7 +50,7 @@ namespace ProyectoVersion1.Data
                     EspacioId=contexto.Espacios.First(u=>u.Nombre=="Laboratorio 2").Id,
                     CategoriaId=contexto.Categorias.First(u=>u.Nombre=="Tecnología").Id},
 
-                new Bien{Codigo="DS004", Nombre="Silla", Descripcion="Asiento de madera para uso en oficinas o estaciones de trabajo.", Precio=150,
+                new Bien{Codigo="DS004", Nombre="Silla de madera", Descripcion="Asiento de madera para uso en oficinas o estaciones de trabajo.", Precio=150,
                     EstadoInicial="Activo", FechaIngreso=new DateTime(2024,1,2),
                     EspacioId=contexto.Espacios.First(u=>u.Nombre=="Taller 1").Id,
                     CategoriaId=contexto.Categorias.First(u=>u.Nombre=="Mobiliario").Id},
@@ -68,7 +68,27 @@ namespace ProyectoVersion1.Data
                 new Bien{Codigo="DS007", Nombre="Kit Herramientas", Descripcion="Conjunto de herramientas para el mantenimiento de equipos.", Precio=250,
                     EstadoInicial="Activo", FechaIngreso=new DateTime(2024,2,1),
                     EspacioId=contexto.Espacios.First(u=>u.Nombre=="Taller 2").Id,
-                    CategoriaId=contexto.Categorias.First(u=>u.Nombre=="Equipos de Mantenimiento").Id}
+                    CategoriaId=contexto.Categorias.First(u=>u.Nombre=="Equipos de Mantenimiento").Id},
+
+                new Bien{Codigo="DS008", Nombre="Silla de metal", Descripcion="Asiento de metal para uso en oficinas o estaciones de trabajo.", Precio=350,
+                    EstadoInicial="Activo", FechaIngreso=new DateTime(2024,1,3),
+                    EspacioId=contexto.Espacios.First(u=>u.Nombre=="Aula 1").Id,
+                    CategoriaId=contexto.Categorias.First(u=>u.Nombre=="Mobiliario").Id},
+
+                new Bien{Codigo="DS009", Nombre="Ecran", Descripcion="Dispositivo para poder presentar el contenido de un proyector.", Precio=200,
+                    EstadoInicial="Activo", FechaIngreso=new DateTime(2024,1,3),
+                    EspacioId=contexto.Espacios.First(u=>u.Nombre=="Laboratorio 1").Id,
+                    CategoriaId=contexto.Categorias.First(u=>u.Nombre=="Tecnología").Id},
+
+                new Bien{Codigo="DS010", Nombre="Silla Almohadada", Descripcion="Asiento alcolchanado para laboratorios.", Precio=250,
+                    EstadoInicial="Activo", FechaIngreso=new DateTime(2024,1,3),
+                    EspacioId=contexto.Espacios.First(u=>u.Nombre=="Laboratorio 1").Id,
+                    CategoriaId=contexto.Categorias.First(u=>u.Nombre=="Mobiliario").Id},
+
+                new Bien{Codigo="DS011", Nombre="Escritorio Grande", Descripcion="Escritorio de madera para 3 personas.", Precio=350,
+                    EstadoInicial="Activo", FechaIngreso=new DateTime(2024,1,3),
+                    EspacioId=contexto.Espacios.First(u=>u.Nombre=="Taller 2").Id,
+                    CategoriaId=contexto.Categorias.First(u=>u.Nombre=="Mobiliario").Id}
             };
             contexto.Bienes.AddRange(bienes);
             contexto.SaveChanges();
@@ -86,12 +106,12 @@ namespace ProyectoVersion1.Data
 
             var encargos = new Encargo[]
             {
-                new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Diego Cruzado").Id, BienId=contexto.Bienes.First(u=>u.Nombre=="Computador DELL").Id, FechaInicio= new DateTime(2024,1,1), FechaFin= new DateTime(2025,1,2), EstadoActual="Activo"},
-                new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Diego Cruzado").Id, BienId=contexto.Bienes.First(u=>u.Nombre=="Monitor DELL").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(2025,1,1), EstadoActual="Dañado"},
-                new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Angie Malca").Id, BienId=contexto.Bienes.First(u=>u.Nombre=="Impresora EPSON").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(), EstadoActual="Activo"},
-                new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Angie Malca").Id, BienId=contexto.Bienes.First(u=>u.Nombre=="Escritorio").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(), EstadoActual = "Activo"},
-                new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Alexis Casanova").Id, BienId=contexto.Bienes.First(u=>u.Nombre=="Silla").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(), EstadoActual = "Activo"},
-                new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Fernando Becerra").Id, BienId=contexto.Bienes.First(u=>u.Nombre=="Kit Herramientas").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(2025,1,2), EstadoActual = "Activo"}
+                new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Diego Cruzado").Id, BienId=contexto.Bienes.First(u=>u.Codigo=="DS001").Id, FechaInicio= new DateTime(2024,1,1), FechaFin= new DateTime(2025,1,1), EstadoActual="Activo"},
+                new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Diego Cruzado").Id, BienId=contexto.Bienes.First(u=>u.Codigo=="DS002").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(2025,1,2), EstadoActual="Dañado"},
+                new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Angie Malca").Id, BienId=contexto.Bienes.First(u=>u.Codigo=="DS003").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(2025,1,2), EstadoActual="Activo"},
+                new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Angie Malca").Id, BienId=contexto.Bienes.First(u=>u.Codigo=="DS004").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(2025,1,2), EstadoActual = "Activo"},
+                new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Alexis Casanova").Id, BienId=contexto.Bienes.First(u=>u.Codigo=="DS005").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(2025, 1, 2), EstadoActual = "Activo"},
+                new Encargo{TrabajadorId=contexto.Trabajadores.First(u=>u.Nombre=="Fernando Becerra").Id, BienId=contexto.Bienes.First(u=>u.Codigo=="DS006").Id, FechaInicio= new DateTime(2024,1,2), FechaFin= new DateTime(2025,1,2), EstadoActual = "Activo"}
             };
             contexto.Encargos.AddRange(encargos);
             contexto.SaveChanges();

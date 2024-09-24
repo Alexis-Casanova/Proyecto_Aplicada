@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using ProyectoVersion1.Data;
 using ProyectoVersion1.Models;
 using Rotativa.AspNetCore;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using X.PagedList;
 
